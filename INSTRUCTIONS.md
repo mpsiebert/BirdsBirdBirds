@@ -80,7 +80,7 @@ copy C:\Users\YourName\Desktop\bird_yourname.png birds\
 python3 add_bird.py birds/bird_yourname.png
 ```
 
-3. Paste your JSON, then press **Enter twice**
+3. Paste your JSON, then type **END** on a new line and press **Enter**
 
 ---
 
