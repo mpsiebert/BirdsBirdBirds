@@ -10,5 +10,17 @@
     },
     "origin": "brooklyn",
     "bird_name": "mary"
+  },
+  {
+    "id": "bird_hawk",
+    "image": "birds/anothertest.png",
+    "animation": {
+      "css_keyframes": "@keyframes fly_hawk { 0% { transform: translate(-20vw, 10vh) rotate(10deg); } 25% { transform: translate(15vw, 60vh) rotate(25deg); } 50% { transform: translate(50vw, 70vh) rotate(0deg); } 75% { transform: translate(85vw, 30vh) rotate(-15deg); } 100% { transform: translate(120vw, 15vh) rotate(-5deg); } }",
+      "animation_name": "fly_hawk",
+      "duration": "15s",
+      "timing_function": "ease-in-out"
+    },
+    "origin": "kansas",
+    "bird_name": "mp"
   }
 ]
