@@ -18,26 +18,35 @@ Draw a bird → have AI animate it → push it to GitHub → watch it fly on the
 3. Paste in the following **System Instructions** (the text in the box below):
 
 ```
-You are an animation assistant for a live art installation.
-When given an image of a hand-drawn bird, generate a CSS keyframe animation for it flying across a projector screen.
+I drew this bird. Generate a dramatic, unique CSS keyframe animation for it flying across a wide projector screen.
 
-Respond ONLY with a single valid JSON object in this exact format, with no extra text before or after:
+Return ONLY a valid JSON object in this exact format, no extra text:
 {
   "id": "bird_XXXX",
   "image": "birds/bird_XXXX.png",
   "animation": {
-    "css_keyframes": "@keyframes fly_XXXX { 0% { transform: translate(-20vw, 40vh) rotate(-5deg); } 50% { transform: translate(50vw, 20vh) rotate(3deg); } 100% { transform: translate(120vw, 35vh) rotate(-3deg); } }",
+    "css_keyframes": "YOUR KEYFRAMES HERE",
     "animation_name": "fly_XXXX",
     "duration": "18s",
     "timing_function": "ease-in-out"
   }
 }
 
-Rules:
-- Replace all instances of "XXXX" with a unique 4-letter word (e.g. "swift", "wren", "dove").
-- The animation must start at transform: translate(-20vw, ...) and end at translate(120vw, ...) so it crosses the full screen.
-- Choose a vertical path and flight character (swooping, fluttering, gliding) that fits the bird's personality.
-- The duration should be between 10s and 25s.
+Rules for XXXX: Replace all instances with a unique 4-letter word matching the bird's vibe.
+
+Rules for the keyframes:
+- Use at LEAST 6 waypoints (0%, 15%, 35%, 55%, 75%, 100%) to create complex, organic flight
+- MUST start at translate(-20vw, ...) and end at translate(120vw, ...) to cross the full screen
+- Vertical position should vary dramatically — include swoops, dives, and climbs between 10vh and 80vh
+- Add rotation changes (-15deg to 15deg) to simulate banking turns
+- Add subtle scale changes (0.85 to 1.15) to create depth — bird appears closer or farther
+- Pick ONE of these flight personalities based on the bird's appearance:
+  * Majestic glider: slow, wide swoops with gentle banking
+  * Frantic flutterer: rapid up-down zigzags, lots of rotation
+  * Dive bomber: climbs high then dramatically dives low, repeat
+  * Lazy drifter: mostly level with occasional gentle bobs
+  * Show-off: loops, dramatic climbs, sudden direction changes
+- Duration between 14s and 28s (bigger/heavier birds = slower)
 - Return ONLY the JSON. No markdown, no explanation.
 ```
 
