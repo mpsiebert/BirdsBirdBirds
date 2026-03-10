@@ -38,17 +38,19 @@
         body::before { width: 500px; height: 300px; top: 10%; left: 5%; }
         body::after  { width: 400px; height: 200px; top: 20%; right: 10%; }
 
-        /* Sun */
-        #sun {
-            position: absolute;
-            top: 48px;
-            right: 120px;
-            width: 130px;
-            height: 130px;
-            background: radial-gradient(circle at 40% 40%, #ffe566, #ffc200);
-            border-radius: 50%;
-            box-shadow: 0 0 60px rgba(255, 200, 0, 0.55), 0 0 120px rgba(255, 200, 0, 0.2);
-            z-index: 0;
+        /* Made with love footer */
+        #credits {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--navy-800);
+            opacity: 0.45;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
         }
 
         /* HUD watermark */
@@ -68,7 +70,7 @@
         /* Bird count badge */
         #bird-count {
             position: fixed;
-            bottom: 24px;
+            bottom: 20px;
             right: 28px;
             z-index: 999;
             font-size: 0.75rem;
@@ -99,7 +101,7 @@
 </head>
 <body>
 
-    <div id="sun"></div>
+    <div id="credits">made with ♥ by the mlh ai roadshow team</div>
 
     <div id="hud">
         <div class="title">🐦 Birds Birds Birds</div>
