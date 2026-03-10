@@ -124,7 +124,7 @@
 
     <div id="sky"></div>
 
-    <div id="bird-count">0 birds in the sky</div>
+    <div id="bird-count">0 birds at All Things AI</div>
 
     <script>
         let seenBirds = new Set();
@@ -145,7 +145,7 @@
                     }
                 });
 
-                countLabel.textContent = seenBirds.size + ' bird' + (seenBirds.size !== 1 ? 's' : '') + ' in the sky';
+                countLabel.textContent = seenBirds.size + ' bird' + (seenBirds.size !== 1 ? 's' : '') + ' at All Things AI';
             } catch (e) {
                 console.warn('Manifest fetch error:', e);
             }
