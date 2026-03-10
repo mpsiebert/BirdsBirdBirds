@@ -23,6 +23,39 @@ import json
 import os
 import shutil
 
+try:
+    from PIL import Image
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
+
+def process_image(img_path):
+    if not HAS_PIL:
+        print("\n⚠️   Tip: Install Pillow ('pip install Pillow') to automatically remove the white background from your MS Paint bird!")
+        return
+
+    try:
+        img = Image.open(img_path).convert("RGBA")
+        datas = img.getdata()
+        
+        new_data = []
+        for item in datas:
+            # Turn white or near-white into transparent
+            if item[0] > 240 and item[1] > 240 and item[2] > 240:
+                new_data.append((255, 255, 255, 0))
+            else:
+                new_data.append(item)
+                
+        img.putdata(new_data)
+        bbox = img.getbbox()
+        if bbox:
+            img = img.crop(bbox)
+        
+        img.save(img_path, "PNG")
+        print("\n✨   Automatically removed white background and cropped the image!")
+    except Exception as e:
+        print(f"\n⚠️   Could not process image background: {e}")
+
 def main():
     print()
     print("🐦  BirdsBirdBirds – Bird Submission Helper")
@@ -52,6 +85,9 @@ def main():
             print(f"\n❌  Could not find image: {image_path}")
             print("    Make sure it's inside the birds/ folder.")
             sys.exit(1)
+
+    # Process the background to make white transparent
+    process_image(image_path)
 
     # ── 2. Ask for name & origin ───────────────────────────────
     print()
