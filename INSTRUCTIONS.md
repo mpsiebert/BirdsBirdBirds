@@ -88,7 +88,7 @@ python3 add_bird.py birds/bird_yourname.png
 
 ```bash
 git add .
-git commit -m "Add my bird 🐦"
+git commit -m "Add my bird"
 git push
 ```
 
