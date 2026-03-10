@@ -1,0 +1,14 @@
+[
+  {
+    "id": "bird_goof",
+    "image": "birds/testbird.png",
+    "animation": {
+      "css_keyframes": "@keyframes fly_goof { 0% { transform: translate(-20vw, 55vh) rotate(10deg); } 40% { transform: translate(40vw, 25vh) rotate(-15deg); } 75% { transform: translate(85vw, 65vh) rotate(20deg); } 100% { transform: translate(120vw, 45vh) rotate(-5deg); } }",
+      "animation_name": "fly_goof",
+      "duration": "22s",
+      "timing_function": "ease-in-out"
+    },
+    "origin": "brooklyn",
+    "bird_name": "mary"
+  }
+]
