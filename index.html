@@ -7,6 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --mlh-navy:   #0B1D30;
+            --mlh-red:    #E73427;
+            --mlh-blue:   #1D539F;
+            --mlh-yellow: #F0C142;
+            --mlh-white:  #FFFFFF;
+            --mlh-gray:   #303030;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -16,40 +25,26 @@
             width: 100vw;
             position: relative;
             image-rendering: pixelated;
-            background: #2c1e6e;
+            background: var(--mlh-navy);
         }
 
-        /* 8-bit sunset sky */
+        /* Light neutral sky so birds are visible */
         #sky-bg {
             position: absolute; inset: 0;
             background: linear-gradient(180deg,
-                #1a0a3e 0%,
-                #2c1e6e 20%,
-                #4a3c9e 40%,
-                #6e5cc4 55%,
-                #e87858 75%,
-                #f8a848 85%,
-                #f8d878 95%,
-                #f8f0a8 100%
+                #d4e8f7 0%,
+                #e8f2fc 25%,
+                #f0f6fd 50%,
+                #f8fbff 70%,
+                #eff4f9 100%
             );
         }
 
-        /* Pixel stars */
-        .star {
-            position: absolute;
-            width: 4px; height: 4px;
-            background: #fff;
-            animation: twinkle 2s ease-in-out infinite alternate;
-        }
-        @keyframes twinkle {
-            0%   { opacity: 0.2; }
-            100% { opacity: 1; }
-        }
-
-        /* Pixel clouds */
+        /* Pixel clouds in MLH white/light blue */
         .cloud {
             position: absolute;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.7);
+            border-bottom: 4px solid rgba(29,83,159,0.08);
             animation: drift 80s linear infinite;
         }
         @keyframes drift {
@@ -57,17 +52,17 @@
             100% { transform: translateX(-60vw); }
         }
 
-        /* Scrolling pixel ground */
+        /* Scrolling pixel ground in MLH navy */
         #ground {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 70px;
+            height: 60px;
             background: repeating-linear-gradient(90deg,
-                #3a7a2e 0px, #3a7a2e 40px,
-                #4a9a3e 40px, #4a9a3e 80px
+                var(--mlh-navy) 0px, var(--mlh-navy) 40px,
+                #122a42 40px, #122a42 80px
             );
-            border-top: 6px solid #2a5a1e;
+            border-top: 4px solid var(--mlh-red);
             z-index: 100;
             animation: scroll-ground 8s linear infinite;
         }
@@ -76,49 +71,56 @@
             100% { background-position: -80px 0; }
         }
 
-        /* HUD - retro game style */
+        /* HUD - MLH branded */
         #hud {
             position: fixed;
             top: 16px;
             left: 20px;
             z-index: 999;
-            color: #f8f0a8;
-            text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
-            font-size: 14px;
+            color: var(--mlh-navy);
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            font-size: 13px;
             line-height: 2;
         }
+        #hud .accent {
+            color: var(--mlh-red);
+        }
 
+        /* Bird counter in MLH red */
         #bird-count {
             position: fixed;
             top: 16px;
             right: 20px;
             z-index: 999;
             font-size: 10px;
-            color: #f8f0a8;
-            text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            color: var(--mlh-white);
+            background: var(--mlh-red);
+            padding: 8px 14px;
+            border: 3px solid var(--mlh-navy);
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
         }
 
+        /* Credits */
         #credits {
             position: fixed;
-            bottom: 86px;
+            bottom: 74px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
-            font-size: 7px;
-            color: #f8f0a8;
-            opacity: 0.45;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+            font-size: 6px;
+            color: var(--mlh-navy);
+            opacity: 0.35;
             white-space: nowrap;
         }
 
-        /* CRT scanlines */
+        /* Subtle scanlines */
         #scanlines {
             position: fixed; inset: 0;
             z-index: 998;
             pointer-events: none;
             background: repeating-linear-gradient(
-                transparent 0px, transparent 2px,
-                rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px
+                transparent 0px, transparent 3px,
+                rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 6px
             );
         }
 
@@ -145,15 +147,16 @@
             100% { transform: scaleY(0.92) scaleX(1.06) rotate(1.5deg); }
         }
 
+        /* Bird labels - MLH navy + yellow accent */
         .bird-label {
             font-family: 'Press Start 2P', monospace;
             font-size: 6px;
-            color: #f8f0a8;
-            background: rgba(0,0,0,0.6);
-            border: 2px solid #f8d878;
+            color: var(--mlh-yellow);
+            background: var(--mlh-navy);
+            border: 2px solid var(--mlh-blue);
             padding: 4px 8px;
             white-space: nowrap;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
         }
 
         #sky { position: absolute; inset: 0; z-index: 50; }
@@ -165,7 +168,10 @@
     <div id="sky-bg"></div>
     <div id="scanlines"></div>
 
-    <div id="hud">WHO'S FLYING TO THE<br>MLH AI ROADSHOW?</div>
+    <div id="hud">
+        <span class="accent">WHO'S FLYING TO THE</span><br>
+        MLH AI ROADSHOW?
+    </div>
 
     <div id="bird-count">BIRDS: 0</div>
     <div id="credits">MADE WITH LOVE BY THE MLH AI ROADSHOW TEAM</div>
@@ -174,29 +180,19 @@
     <div id="ground"></div>
 
     <script>
-        // Generate pixel stars
+        // Generate pixel clouds
         (function() {
             const bg = document.getElementById('sky-bg');
-            for (let i = 0; i < 50; i++) {
-                const s = document.createElement('div');
-                s.className = 'star';
-                s.style.left = Math.random() * 100 + 'vw';
-                s.style.top  = Math.random() * 45 + 'vh';
-                s.style.animationDelay = (Math.random() * 3) + 's';
-                s.style.width = s.style.height = (Math.random() > 0.7 ? 6 : 4) + 'px';
-                bg.appendChild(s);
-            }
-            // Generate pixel clouds
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 8; i++) {
                 const c = document.createElement('div');
                 c.className = 'cloud';
-                c.style.width  = (60 + Math.random() * 120) + 'px';
-                c.style.height = (16 + Math.random() * 24) + 'px';
+                c.style.width  = (80 + Math.random() * 150) + 'px';
+                c.style.height = (20 + Math.random() * 28) + 'px';
                 c.style.left   = Math.random() * 120 + 'vw';
-                c.style.top    = (10 + Math.random() * 40) + 'vh';
-                c.style.opacity = 0.12 + Math.random() * 0.15;
+                c.style.top    = (5 + Math.random() * 50) + 'vh';
+                c.style.opacity = 0.4 + Math.random() * 0.3;
                 c.style.animationDelay = (-Math.random() * 60) + 's';
-                c.style.animationDuration = (50 + Math.random() * 60) + 's';
+                c.style.animationDuration = (50 + Math.random() * 50) + 's';
                 bg.appendChild(c);
             }
         })();
