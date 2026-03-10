@@ -80,19 +80,34 @@
         }
 
         /* Birds */
-        .bird {
+        .bird-wrapper {
             position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
             will-change: transform;
+        }
+
+        .bird {
             max-width: 180px;
             max-height: 180px;
             filter: drop-shadow(3px 6px 8px rgba(0,0,0,0.18));
+            display: block;
         }
 
-        /* Entrance pop when a new bird is added */
-        @keyframes bird-pop {
-            0%   { opacity: 0; transform: scale(0.4); }
-            60%  { transform: scale(1.15); }
-            100% { opacity: 1; transform: scale(1); }
+        .bird-label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--navy-800);
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(11,29,48,0.12);
+            border-radius: 20px;
+            padding: 3px 10px;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
         }
 
         #sky { position: absolute; inset: 0; }
@@ -140,26 +155,40 @@
             // inject keyframes
             kfStyle.innerHTML += '\n' + bird.animation.css_keyframes;
 
-            const img = document.createElement('img');
-            img.src       = bird.image + '?raw=true';
-            img.className = 'bird';
-            img.id        = bird.id;
+            // wrapper (this is what gets animated)
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bird-wrapper';
+            wrapper.id        = bird.id;
 
-            // random start vertical position between 5vh – 85vh
-            const y = Math.random() * 80 + 5;
-            img.style.top = y + 'vh';
+            // random start vertical position between 5vh – 80vh
+            const y = Math.random() * 75 + 5;
+            wrapper.style.top = y + 'vh';
 
             // random depth / overlap
-            img.style.zIndex = Math.floor(Math.random() * 50) + 1;
+            wrapper.style.zIndex = Math.floor(Math.random() * 50) + 1;
 
             // apply the Gemini-generated animation
             const dur    = bird.animation.duration  || '18s';
             const timing = bird.animation.timing_function || 'ease-in-out';
-            img.style.animation = bird.animation.animation_name + ' ' + dur + ' ' + timing + ' infinite';
+            wrapper.style.animation = bird.animation.animation_name + ' ' + dur + ' ' + timing + ' infinite';
 
-            // entrance pop animation
-            img.style.animationPlay  = 'running';
-            sky.appendChild(img);
+            // the image
+            const img = document.createElement('img');
+            img.src       = bird.image + '?raw=true';
+            img.className = 'bird';
+            wrapper.appendChild(img);
+
+            // name + origin label
+            if (bird.bird_name || bird.origin) {
+                const label = document.createElement('div');
+                label.className = 'bird-label';
+                const name   = bird.bird_name || 'Anonymous';
+                const origin = bird.origin    || '';
+                label.textContent = origin ? name + ' · ' + origin : name;
+                wrapper.appendChild(label);
+            }
+
+            sky.appendChild(wrapper);
         }
 
         // Poll every 6 seconds
