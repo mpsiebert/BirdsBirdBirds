@@ -9,10 +9,9 @@
     <style>
         :root {
             --lime:       #CCFF00;
-            --navy:       #1E1E3A;
             --periwinkle: #8888DD;
-            --light-peri: #AAAAEE;
-            --dark:       #151528;
+            --charcoal:   #2A2A35;
+            --dark:       #222230;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,81 +21,62 @@
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            background: var(--charcoal);
             position: relative;
-            background: var(--lime);
         }
 
-        /* Wavy decorative lines */
-        .wave-line {
-            position: absolute;
-            width: 200vw;
-            height: 40px;
-            opacity: 0.12;
+        /* Subtle noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
             z-index: 1;
-        }
-        .wave-line svg { width: 100%; height: 100%; }
-        .wave-line svg path { stroke: var(--navy); stroke-width: 3; fill: none; }
-        .wave-1 { top: 15vh; animation: wave-drift 30s linear infinite; }
-        .wave-2 { top: 45vh; animation: wave-drift 40s linear infinite reverse; }
-        .wave-3 { top: 75vh; animation: wave-drift 35s linear infinite; }
-
-        @keyframes wave-drift {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            pointer-events: none;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
         }
 
-        /* Header area */
+        /* Subtle grid lines for texture depth */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Header */
         #hud {
             position: fixed;
-            top: 30px;
-            left: 36px;
+            top: 28px;
+            left: 32px;
             z-index: 999;
         }
-        #hud .small {
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--navy);
-            opacity: 0.6;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
         #hud .title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            color: var(--navy);
-            line-height: 1.15;
+            color: var(--lime);
+            line-height: 1.2;
             letter-spacing: -0.02em;
         }
 
-        /* Bird counter — stamp style */
+        /* Bird counter */
         #bird-count {
             position: fixed;
-            top: 30px;
+            top: 34px;
             right: 36px;
             z-index: 999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 90px;
-            height: 90px;
-            border: 3px solid var(--navy);
-            border-radius: 50%;
-            text-align: center;
-            color: var(--navy);
-        }
-        #bird-count .number {
-            font-size: 28px;
+            font-size: 14px;
             font-weight: 700;
-            line-height: 1;
-        }
-        #bird-count .label {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            opacity: 0.6;
-            margin-top: 2px;
+            color: var(--periwinkle);
+            letter-spacing: 0.02em;
         }
 
         /* Credits */
@@ -107,31 +87,9 @@
             transform: translateX(-50%);
             z-index: 999;
             font-size: 11px;
-            color: var(--navy);
-            opacity: 0.35;
+            color: rgba(255,255,255,0.18);
             white-space: nowrap;
             letter-spacing: 0.03em;
-        }
-
-        /* Sponsor bar */
-        #sponsors {
-            position: fixed;
-            bottom: 20px;
-            right: 36px;
-            z-index: 999;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .sponsor-badge {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--lime);
-            background: var(--navy);
-            padding: 6px 14px;
-            border-radius: 4px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
         }
 
         /* Birds */
@@ -149,6 +107,9 @@
             max-height: 160px;
             display: block;
             animation: flap 0.4s ease-in-out infinite alternate;
+            /* Subtle glow to make birds pop against dark bg */
+            filter: drop-shadow(0 0 12px rgba(204,255,0,0.15))
+                    drop-shadow(0 0 30px rgba(136,136,221,0.1));
         }
 
         @keyframes flap {
@@ -156,94 +117,45 @@
             100% { transform: scaleY(0.93) scaleX(1.05) rotate(1.2deg); }
         }
 
-        /* Bird labels — dark navy pill */
+        /* Bird name labels — neon lime + periwinkle gradient border */
         .bird-label {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 10px;
             font-weight: 700;
             color: var(--lime);
-            background: var(--navy);
+            background: rgba(30,30,50,0.8);
+            backdrop-filter: blur(6px);
+            border: 1.5px solid var(--periwinkle);
             border-radius: 20px;
-            padding: 5px 14px;
+            padding: 4px 14px;
             white-space: nowrap;
             letter-spacing: 0.03em;
         }
+        .bird-label .origin {
+            color: var(--periwinkle);
+        }
 
         #sky { position: absolute; inset: 0; z-index: 50; }
-
-        /* Decorative periwinkle circles */
-        .deco-circle {
-            position: absolute;
-            border: 2px solid var(--periwinkle);
-            border-radius: 50%;
-            opacity: 0.15;
-            z-index: 2;
-        }
     </style>
     <style id="dynamic-keyframes"></style>
 </head>
 <body>
 
-    <!-- Decorative wavy lines -->
-    <div class="wave-line wave-1">
-        <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
-            <path d="M0,20 Q30,0 60,20 Q90,40 120,20 Q150,0 180,20 Q210,40 240,20 Q270,0 300,20 Q330,40 360,20 Q390,0 420,20 Q450,40 480,20 Q510,0 540,20 Q570,40 600,20 Q630,0 660,20 Q690,40 720,20 Q750,0 780,20 Q810,40 840,20 Q870,0 900,20 Q930,40 960,20 Q990,0 1020,20 Q1050,40 1080,20 Q1110,0 1140,20 Q1170,40 1200,20 Q1230,0 1260,20 Q1290,40 1320,20 Q1350,0 1380,20 Q1410,40 1440,20 Q1470,0 1500,20 Q1530,40 1560,20 Q1590,0 1620,20 Q1650,40 1680,20 Q1710,0 1740,20 Q1770,40 1800,20 Q1830,0 1860,20 Q1890,40 1920,20 Q1950,0 1980,20 Q2010,40 2040,20 Q2070,0 2100,20 Q2130,40 2160,20 Q2190,0 2220,20 Q2250,40 2280,20 Q2310,0 2340,20 Q2370,40 2400,20"/>
-        </svg>
-    </div>
-    <div class="wave-line wave-2">
-        <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
-            <path d="M0,20 Q30,0 60,20 Q90,40 120,20 Q150,0 180,20 Q210,40 240,20 Q270,0 300,20 Q330,40 360,20 Q390,0 420,20 Q450,40 480,20 Q510,0 540,20 Q570,40 600,20 Q630,0 660,20 Q690,40 720,20 Q750,0 780,20 Q810,40 840,20 Q870,0 900,20 Q930,40 960,20 Q990,0 1020,20 Q1050,40 1080,20 Q1110,0 1140,20 Q1170,40 1200,20 Q1230,0 1260,20 Q1290,40 1320,20 Q1350,0 1380,20 Q1410,40 1440,20 Q1470,0 1500,20 Q1530,40 1560,20 Q1590,0 1620,20 Q1650,40 1680,20 Q1710,0 1740,20 Q1770,40 1800,20 Q1830,0 1860,20 Q1890,40 1920,20 Q1950,0 1980,20 Q2010,40 2040,20 Q2070,0 2100,20 Q2130,40 2160,20 Q2190,0 2220,20 Q2250,40 2280,20 Q2310,0 2340,20 Q2370,40 2400,20"/>
-        </svg>
-    </div>
-    <div class="wave-line wave-3">
-        <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
-            <path d="M0,20 Q30,0 60,20 Q90,40 120,20 Q150,0 180,20 Q210,40 240,20 Q270,0 300,20 Q330,40 360,20 Q390,0 420,20 Q450,40 480,20 Q510,0 540,20 Q570,40 600,20 Q630,0 660,20 Q690,40 720,20 Q750,0 780,20 Q810,40 840,20 Q870,0 900,20 Q930,40 960,20 Q990,0 1020,20 Q1050,40 1080,20 Q1110,0 1140,20 Q1170,40 1200,20"/>
-        </svg>
-    </div>
-
     <div id="hud">
-        <div class="small">Who's flying to the</div>
-        <div class="title">MLH AI<br>Roadshow?</div>
+        <div class="title">MLH AI<br>Roadshow</div>
     </div>
 
-    <div id="bird-count">
-        <div class="number" id="count-num">0</div>
-        <div class="label">birds</div>
-    </div>
+    <div id="bird-count">0 birds flying</div>
 
     <div id="credits">made with ♥ by the MLH AI Roadshow Team</div>
-
-    <div id="sponsors">
-        <span class="sponsor-badge">Google Cloud</span>
-        <span class="sponsor-badge">MLH</span>
-    </div>
 
     <div id="sky"></div>
 
     <script>
-        // Decorative circles
-        (function() {
-            const body = document.body;
-            const positions = [
-                {w:180, x:'75vw', y:'12vh'},
-                {w:120, x:'85vw', y:'65vh'},
-                {w:60,  x:'10vw', y:'80vh'},
-                {w:200, x:'60vw', y:'85vh'},
-            ];
-            positions.forEach(p => {
-                const d = document.createElement('div');
-                d.className = 'deco-circle';
-                d.style.width = d.style.height = p.w + 'px';
-                d.style.left = p.x;
-                d.style.top  = p.y;
-                body.appendChild(d);
-            });
-        })();
-
         let seenBirds = new Set();
         const sky        = document.getElementById('sky');
         const kfStyle    = document.getElementById('dynamic-keyframes');
-        const countNum   = document.getElementById('count-num');
+        const countLabel = document.getElementById('bird-count');
 
         function removeWhiteBackground(img) {
             try {
@@ -274,7 +186,7 @@
                         addBirdToSky(bird);
                     }
                 });
-                countNum.textContent = seenBirds.size;
+                countLabel.textContent = seenBirds.size + ' bird' + (seenBirds.size !== 1 ? 's' : '') + ' flying';
             } catch (e) { console.warn('Manifest fetch error:', e); }
         }
 
@@ -284,7 +196,7 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'bird-wrapper';
             wrapper.id        = bird.id;
-            wrapper.style.top = (Math.random() * 60 + 10) + 'vh';
+            wrapper.style.top = (Math.random() * 65 + 8) + 'vh';
             wrapper.style.zIndex = Math.floor(Math.random() * 50) + 51;
 
             const dur    = bird.animation.duration  || '18s';
@@ -303,7 +215,11 @@
                 label.className = 'bird-label';
                 const n = bird.bird_name || 'Anon';
                 const o = bird.origin || '';
-                label.textContent = o ? n + ' · ' + o : n;
+                if (o) {
+                    label.innerHTML = n + ' <span class="origin">· ' + o + '</span>';
+                } else {
+                    label.textContent = n;
+                }
                 wrapper.appendChild(label);
             }
 
