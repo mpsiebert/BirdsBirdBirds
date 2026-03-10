@@ -10,8 +10,8 @@
         :root {
             --lime:       #CCFF00;
             --periwinkle: #8888DD;
-            --charcoal:   #2A2A35;
-            --dark:       #222230;
+            --charcoal:   #3D3D50;
+            --dark:       #333345;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,19 +38,7 @@
             background-size: 256px 256px;
         }
 
-        /* Subtle grid lines for texture depth */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.03;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
+
 
         /* Header */
         #hud {
@@ -103,13 +91,13 @@
         }
 
         .bird {
-            max-width: 160px;
-            max-height: 160px;
+            max-width: 240px;
+            max-height: 240px;
             display: block;
             animation: flap 0.4s ease-in-out infinite alternate;
-            /* Subtle glow to make birds pop against dark bg */
-            filter: drop-shadow(0 0 12px rgba(204,255,0,0.15))
-                    drop-shadow(0 0 30px rgba(136,136,221,0.1));
+            filter: contrast(1.3) brightness(1.15)
+                    drop-shadow(0 0 18px rgba(204,255,0,0.25))
+                    drop-shadow(0 0 40px rgba(136,136,221,0.15));
         }
 
         @keyframes flap {
