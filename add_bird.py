@@ -65,13 +65,13 @@ def main():
     # ── 3. Get JSON from AI Studio ─────────────────────────────
     print()
     print("📋  Paste the JSON from AI Studio below.")
-    print("    (Paste it, then press Enter twice to continue)\n")
+    print("    When done, type END on a new line and press Enter.\n")
 
     lines = []
     try:
         while True:
             line = input()
-            if line == "" and lines and lines[-1] == "":
+            if line.strip().upper() == "END":
                 break
             lines.append(line)
     except EOFError:
@@ -80,11 +80,9 @@ def main():
     raw = "\n".join(lines).strip()
 
     # Strip markdown code fences if AI Studio added them
-    if raw.startswith("```"):
+    if "```" in raw:
         raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
+        raw = raw.lstrip("json").strip()
 
     # ── 4. Parse & validate ────────────────────────────────────
     try:
