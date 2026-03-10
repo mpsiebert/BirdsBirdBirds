@@ -29,6 +29,14 @@ try:
 except ImportError:
     HAS_PIL = False
 
+try:
+    import google.generativeai as genai
+    HAS_GENAI = True
+except ImportError:
+    HAS_GENAI = False
+
+GEMINI_API_KEY = os.environ.get("GOOGLE_GEMINI_API_KEY", "")
+
 def process_image(img_path):
     if not HAS_PIL:
         print("\n⚠️   Tip: Install Pillow ('pip install Pillow') to automatically remove the white background from your MS Paint bird!")
@@ -55,6 +63,52 @@ def process_image(img_path):
         print("\n✨   Automatically removed white background and cropped the image!")
     except Exception as e:
         print(f"\n⚠️   Could not process image background: {e}")
+
+def moderate_image(img_path):
+    """Use Gemini to check the image is appropriate per MLH Code of Conduct."""
+    if not HAS_GENAI or not GEMINI_API_KEY:
+        print("\n⚠️   Content moderation skipped (google-generativeai not installed or API key not set).")
+        return True
+
+    try:
+        genai.configure(api_key=GEMINI_API_KEY)
+        model = genai.GenerativeModel('gemini-1.5-flash')
+
+        img = Image.open(img_path) if HAS_PIL else None
+        if img is None:
+            return True
+
+        prompt = """You are a content moderator for a family-friendly event run by Major League Hacking (MLH).
+
+Review this image and determine:
+1. Is this a drawing of a bird (or a reasonable creative interpretation of one)?
+2. Does this image comply with the MLH Code of Conduct? It must NOT contain:
+   - Nudity, sexual content, or suggestive imagery
+   - Hate symbols, slurs, or discriminatory content
+   - Violent or gory imagery
+   - Harassment, bullying, or threatening content
+   - Drug or alcohol references
+   - Any content that would make attendees feel unsafe or unwelcome
+
+Respond with ONLY one word: APPROVED or REJECTED
+If rejected, add a brief reason after a pipe character, like: REJECTED|reason here"""
+
+        response = model.generate_content([prompt, img])
+        result = response.text.strip()
+
+        if result.startswith("APPROVED"):
+            print("\n✅  Content check passed!")
+            return True
+        else:
+            reason = result.split("|", 1)[1].strip() if "|" in result else "Image did not pass content review."
+            print(f"\n🚫  Your image was not approved: {reason}")
+            print("    Please make sure your drawing is a bird and is appropriate for all attendees.")
+            print("    See the MLH Code of Conduct: https://mlh.io/code-of-conduct")
+            return False
+    except Exception as e:
+        print(f"\n⚠️   Content moderation error: {e}")
+        # Fail open for workshop — don't block on API errors
+        return True
 
 def main():
     print()
@@ -88,6 +142,10 @@ def main():
 
     # Process the background to make white transparent
     process_image(image_path)
+
+    # Content moderation check
+    if not moderate_image(image_path):
+        sys.exit(1)
 
     # ── 2. Ask for name & origin ───────────────────────────────
     print()
