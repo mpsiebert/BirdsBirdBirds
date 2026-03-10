@@ -55,10 +55,11 @@ Rules:
 > git config --global user.email "you@email.com"
 > ```
 
-Clone the repo (download it to your computer):
+Clone the repo (download it to your computer) and install Pillow (this automatically removes the white background from your drawings!):
 ```bash
 git clone https://github.com/mpsiebert/BirdsBirdBirds
 cd BirdsBirdBirds
+pip install Pillow
 ```
 
 ---
