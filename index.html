@@ -40,16 +40,19 @@
 
 
 
-        /* Header logo */
+        /* Header */
         #hud {
             position: fixed;
-            top: 20px;
-            left: 24px;
+            top: 28px;
+            left: 32px;
             z-index: 999;
         }
-        #hud img {
-            height: 120px;
-            width: auto;
+        #hud .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--lime);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
         }
 
         /* Bird counter */
@@ -127,7 +130,7 @@
 <body>
 
     <div id="hud">
-        <img src="logo.png" alt="MLH AI Roadshow">
+        <div class="title">Who's flying to the<br>MLH AI Roadshow?</div>
     </div>
 
     <div id="bird-count">0 birds flying</div>
