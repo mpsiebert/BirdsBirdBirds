@@ -177,7 +177,7 @@ def main():
     print("Run these commands to send your bird to the sky:")
     print()
     print("    git add .")
-    print('    git commit -m "Add my bird 🐦"')
+    print('    git commit -m "Add my bird"')
     print("    git push")
     print()
     print("Then watch the projector screen... 👀🐦")
