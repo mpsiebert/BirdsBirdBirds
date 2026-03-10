@@ -149,6 +149,8 @@ def main():
 
     # ── 2. Ask for name & origin ───────────────────────────────
     print()
+    print("📢  NOTE: Your name and location will appear publicly")
+    print("    on the projector display and GitHub repository.\n")
     bird_name = input("✏️   What's your name? ").strip()
     if not bird_name:
         bird_name = "Anonymous"
