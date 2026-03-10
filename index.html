@@ -3,80 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birds Birds Birds – Live Display</title>
+    <title>Birds Birds Birds - Live Display</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy-800: rgb(11, 29, 48);
-            --navy-200: rgb(180, 190, 200);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Press Start 2P', monospace;
             overflow: hidden;
-            background: linear-gradient(180deg,
-                #a8d8f0 0%,
-                #c5e8f5 40%,
-                #ddf1fd 70%,
-                #eef8ff 100%);
             height: 100vh;
             width: 100vw;
             position: relative;
+            image-rendering: pixelated;
+            background: #2c1e6e;
         }
 
-        /* subtle cloud-like circles */
-        body::before, body::after {
-            content: '';
+        /* 8-bit sunset sky */
+        #sky-bg {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg,
+                #1a0a3e 0%,
+                #2c1e6e 20%,
+                #4a3c9e 40%,
+                #6e5cc4 55%,
+                #e87858 75%,
+                #f8a848 85%,
+                #f8d878 95%,
+                #f8f0a8 100%
+            );
+        }
+
+        /* Pixel stars */
+        .star {
             position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.45);
-            filter: blur(60px);
+            width: 4px; height: 4px;
+            background: #fff;
+            animation: twinkle 2s ease-in-out infinite alternate;
         }
-        body::before { width: 500px; height: 300px; top: 10%; left: 5%; }
-        body::after  { width: 400px; height: 200px; top: 20%; right: 10%; }
+        @keyframes twinkle {
+            0%   { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
 
-        /* Made with love footer */
+        /* Pixel clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255,255,255,0.2);
+            animation: drift 80s linear infinite;
+        }
+        @keyframes drift {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-60vw); }
+        }
+
+        /* Scrolling pixel ground */
+        #ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70px;
+            background: repeating-linear-gradient(90deg,
+                #3a7a2e 0px, #3a7a2e 40px,
+                #4a9a3e 40px, #4a9a3e 80px
+            );
+            border-top: 6px solid #2a5a1e;
+            z-index: 100;
+            animation: scroll-ground 8s linear infinite;
+        }
+        @keyframes scroll-ground {
+            0%   { background-position: 0 0; }
+            100% { background-position: -80px 0; }
+        }
+
+        /* HUD - retro game style */
+        #hud {
+            position: fixed;
+            top: 16px;
+            left: 20px;
+            z-index: 999;
+            color: #f8f0a8;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        #bird-count {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 999;
+            font-size: 10px;
+            color: #f8f0a8;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+        }
+
         #credits {
             position: fixed;
-            bottom: 20px;
+            bottom: 86px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--navy-800);
+            font-size: 7px;
+            color: #f8f0a8;
             opacity: 0.45;
-            letter-spacing: 0.02em;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
             white-space: nowrap;
         }
 
-        /* HUD watermark */
-        #hud {
-            position: fixed;
-            top: 20px;
-            left: 28px;
-            z-index: 999;
-            color: var(--navy-800);
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        #hud .title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
-        #hud .subtitle { font-size: 0.7rem; opacity: 0.5; }
-
-        /* Bird count badge */
-        #bird-count {
-            position: fixed;
-            bottom: 20px;
-            right: 28px;
-            z-index: 999;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--navy-800);
-            opacity: 0.55;
+        /* CRT scanlines */
+        #scanlines {
+            position: fixed; inset: 0;
+            z-index: 998;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                transparent 0px, transparent 2px,
+                rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px
+            );
         }
 
         /* Birds */
@@ -93,6 +136,7 @@
             max-width: 180px;
             max-height: 180px;
             display: block;
+            image-rendering: pixelated;
             animation: flap 0.4s ease-in-out infinite alternate;
         }
 
@@ -102,36 +146,61 @@
         }
 
         .bird-label {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: var(--navy-800);
-            background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(11,29,48,0.12);
-            border-radius: 20px;
-            padding: 3px 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 6px;
+            color: #f8f0a8;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid #f8d878;
+            padding: 4px 8px;
             white-space: nowrap;
-            letter-spacing: 0.02em;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
         }
 
-        #sky { position: absolute; inset: 0; }
+        #sky { position: absolute; inset: 0; z-index: 50; }
     </style>
     <style id="dynamic-keyframes"></style>
 </head>
 <body>
 
-    <div id="credits">made with ♥ by the MLH AI Roadshow Team</div>
+    <div id="sky-bg"></div>
+    <div id="scanlines"></div>
 
-    <div id="hud">
-        <div class="title">Who's flying to the MLH AI Roadshow?</div>
-    </div>
+    <div id="hud">WHO'S FLYING TO THE<br>MLH AI ROADSHOW?</div>
+
+    <div id="bird-count">BIRDS: 0</div>
+    <div id="credits">MADE WITH LOVE BY THE MLH AI ROADSHOW TEAM</div>
 
     <div id="sky"></div>
-
-    <div id="bird-count">0 birds at All Things AI</div>
+    <div id="ground"></div>
 
     <script>
+        // Generate pixel stars
+        (function() {
+            const bg = document.getElementById('sky-bg');
+            for (let i = 0; i < 50; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.top  = Math.random() * 45 + 'vh';
+                s.style.animationDelay = (Math.random() * 3) + 's';
+                s.style.width = s.style.height = (Math.random() > 0.7 ? 6 : 4) + 'px';
+                bg.appendChild(s);
+            }
+            // Generate pixel clouds
+            for (let i = 0; i < 6; i++) {
+                const c = document.createElement('div');
+                c.className = 'cloud';
+                c.style.width  = (60 + Math.random() * 120) + 'px';
+                c.style.height = (16 + Math.random() * 24) + 'px';
+                c.style.left   = Math.random() * 120 + 'vw';
+                c.style.top    = (10 + Math.random() * 40) + 'vh';
+                c.style.opacity = 0.12 + Math.random() * 0.15;
+                c.style.animationDelay = (-Math.random() * 60) + 's';
+                c.style.animationDuration = (50 + Math.random() * 60) + 's';
+                bg.appendChild(c);
+            }
+        })();
+
         let seenBirds = new Set();
         const sky        = document.getElementById('sky');
         const kfStyle    = document.getElementById('dynamic-keyframes');
@@ -144,19 +213,15 @@
                 canvas.height = img.naturalHeight;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const data = imageData.data;
-                for (let i = 0; i < data.length; i += 4) {
-                    // If pixel is white or near-white, make it transparent
-                    if (data[i] > 235 && data[i+1] > 235 && data[i+2] > 235) {
-                        data[i+3] = 0;
+                const d = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < d.data.length; i += 4) {
+                    if (d.data[i] > 235 && d.data[i+1] > 235 && d.data[i+2] > 235) {
+                        d.data[i+3] = 0;
                     }
                 }
-                ctx.putImageData(imageData, 0, 0);
+                ctx.putImageData(d, 0, 0);
                 img.src = canvas.toDataURL('image/png');
-            } catch(e) {
-                console.warn('Could not process image:', e);
-            }
+            } catch(e) { console.warn('Image processing failed:', e); }
         }
 
         async function fetchManifest() {
@@ -164,42 +229,29 @@
                 const res = await fetch('manifest.json?t=' + Date.now());
                 if (!res.ok) return;
                 const birds = await res.json();
-
                 birds.forEach(bird => {
                     if (!seenBirds.has(bird.id)) {
                         seenBirds.add(bird.id);
                         addBirdToSky(bird);
                     }
                 });
-
-                countLabel.textContent = seenBirds.size + ' bird' + (seenBirds.size !== 1 ? 's' : '') + ' at All Things AI';
-            } catch (e) {
-                console.warn('Manifest fetch error:', e);
-            }
+                countLabel.textContent = 'BIRDS: ' + seenBirds.size;
+            } catch (e) { console.warn('Manifest fetch error:', e); }
         }
 
         function addBirdToSky(bird) {
-            // inject keyframes
             kfStyle.innerHTML += '\n' + bird.animation.css_keyframes;
 
-            // wrapper (this is what gets animated)
             const wrapper = document.createElement('div');
             wrapper.className = 'bird-wrapper';
             wrapper.id        = bird.id;
+            wrapper.style.top = (Math.random() * 55 + 5) + 'vh';
+            wrapper.style.zIndex = Math.floor(Math.random() * 50) + 51;
 
-            // random start vertical position between 5vh – 80vh
-            const y = Math.random() * 75 + 5;
-            wrapper.style.top = y + 'vh';
-
-            // random depth / overlap
-            wrapper.style.zIndex = Math.floor(Math.random() * 50) + 1;
-
-            // apply the Gemini-generated animation
             const dur    = bird.animation.duration  || '18s';
             const timing = bird.animation.timing_function || 'ease-in-out';
             wrapper.style.animation = bird.animation.animation_name + ' ' + dur + ' ' + timing + ' infinite';
 
-            // the image — remove white background via canvas on load
             const img = document.createElement('img');
             img.crossOrigin = 'anonymous';
             img.src       = bird.image;
@@ -207,20 +259,18 @@
             img.onload = function() { removeWhiteBackground(img); };
             wrapper.appendChild(img);
 
-            // name + origin label
             if (bird.bird_name || bird.origin) {
                 const label = document.createElement('div');
                 label.className = 'bird-label';
-                const name   = bird.bird_name || 'Anonymous';
-                const origin = bird.origin    || '';
-                label.textContent = origin ? name + ' · ' + origin : name;
+                const n = (bird.bird_name || 'ANON').toUpperCase();
+                const o = (bird.origin || '').toUpperCase();
+                label.textContent = o ? n + ' // ' + o : n;
                 wrapper.appendChild(label);
             }
 
             sky.appendChild(wrapper);
         }
 
-        // Poll every 6 seconds
         setInterval(fetchManifest, 6000);
         fetchManifest();
     </script>
