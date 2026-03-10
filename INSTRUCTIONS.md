@@ -55,11 +55,16 @@ Rules:
 > git config --global user.email "you@email.com"
 > ```
 
-Clone the repo (download it to your computer) and install Pillow (this automatically removes the white background from your drawings!):
+Clone the repo (download it to your computer) and install dependencies:
 ```bash
 git clone https://github.com/mpsiebert/BirdsBirdBirds
 cd BirdsBirdBirds
-pip install Pillow
+pip install Pillow google-generativeai
+```
+
+Set up your Gemini API key (ask a workshop mentor for the key!):
+```bash
+export GOOGLE_GEMINI_API_KEY="your_key_here"
 ```
 
 ---
