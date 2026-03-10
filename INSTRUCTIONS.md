@@ -5,17 +5,40 @@ Draw a bird → have AI animate it → push it to GitHub → watch it fly on the
 
 ---
 
+## Before You Start — Prerequisites ✅
+
+Make sure you have these on your laptop:
+
+- [ ] **A GitHub account** → sign up free at [github.com](https://github.com)
+- [ ] **Git installed** → check by typing `git --version` in your terminal
+  - Mac: comes pre-installed, or install via `xcode-select --install`
+  - Windows: download from [git-scm.com](https://git-scm.com)
+- [ ] **Python 3 installed** → check by typing `python3 --version` in your terminal
+  - Mac: comes pre-installed
+  - Windows: download from [python.org](https://python.org)
+- [ ] **A GitHub Personal Access Token** → you'll need this to push code
+  - Go to [github.com/settings/tokens](https://github.com/settings/tokens) → Generate new token (classic) → check `repo` → Generate → **copy and save it!**
+
+> **First-time git setup** (only do this once, ever):
+> ```
+> git config --global user.name "Your Name"
+> git config --global user.email "you@email.com"
+> ```
+
+---
+
 ## Step 1 — Draw Your Bird 🎨
-1. Open **MS Paint** (or any drawing tool)
+1. Open **MS Paint** (or any drawing tool on your laptop)
 2. Draw a bird — any bird! Simple, complex, realistic, abstract — all birds welcome
-3. Save it as a **PNG file** with a name like: `bird_yourname.png`
+3. Save it as a **PNG file** somewhere you can find it (e.g. your Desktop)
 
 ---
 
 ## Step 2 — Animate it with AI Studio 🤖
-1. Go to: **https://aistudio.google.com**
-2. Click **"New prompt"** → select **Gemini 1.5 Flash**
-3. Paste in the following **System Instructions** (the text in the box below):
+1. Go to: **https://aistudio.google.com** (sign in with your Google account)
+2. Start a **new prompt** → select **Gemini 1.5 Flash**
+3. Click the **📎 attachment button** and upload your bird image
+4. Paste the following prompt and click **Run**:
 
 ```
 I drew this bird. Generate a dramatic, unique CSS keyframe animation for it flying across a wide projector screen.
@@ -50,73 +73,102 @@ Rules for the keyframes:
 - Return ONLY the JSON. No markdown, no explanation.
 ```
 
-4. Upload your bird image using the **📎 attachment button**
-5. Click **Run** and wait a moment
-6. **Copy all the JSON** that Gemini returns
+5. **Copy the entire JSON** that Gemini gives you — you'll paste it later
 
 ---
 
-## Step 3 — Set Up GitHub 💻
+## Step 3 — Clone the Repo 💻
 
-> **If this is your first time with git**, run these one-time setup commands:
-> ```bash
-> git config --global user.name "Your Name"
-> git config --global user.email "you@email.com"
-> ```
+Open a **terminal** on your laptop:
+- **Mac:** open the Terminal app (search "Terminal" in Spotlight)
+- **Windows:** open Git Bash or Command Prompt
 
-Clone the repo (download it to your computer) and install dependencies:
-```bash
+Run this to download the project:
+
+```
 git clone https://github.com/mpsiebert/BirdsBirdBirds
+```
+
+Then move into the project folder:
+
+```
 cd BirdsBirdBirds
-pip install Pillow google-generativeai
 ```
 
-Set up your Gemini API key (ask a workshop mentor for the key!):
-```bash
-export GOOGLE_GEMINI_API_KEY="your_key_here"
-```
+> ⚠️ **IMPORTANT:** You must be inside the `BirdsBirdBirds` folder for ALL the commands below to work! If you get "file not found" errors, you're probably in the wrong folder.
 
 ---
 
-## Step 4 — Add Your Bird 🐦
+## Step 4 — Copy Your Bird Image 🖼️
 
-1. Copy your bird image into the `birds/` folder:
-```bash
-# Mac/Linux:
-cp ~/Desktop/bird_yourname.png birds/
+Copy your bird image into the `birds/` folder.
 
-# Windows:
-copy C:\Users\YourName\Desktop\bird_yourname.png birds\
+**Mac:**
+```
+cp ~/Desktop/mybird.png birds/
 ```
 
-2. Run the helper script and paste your AI Studio JSON when prompted:
-```bash
-python3 add_bird.py birds/bird_yourname.png
+**Windows:**
+```
+copy C:\Users\YourName\Desktop\mybird.png birds\
 ```
 
-3. Paste your JSON, then type **END** on a new line and press **Enter**
+> Replace `mybird.png` with whatever you named your file.
 
 ---
 
-## Step 5 — Push to GitHub 🚀
+## Step 5 — Run the Helper Script 🐦
 
-```bash
+```
+python3 add_bird.py birds/mybird.png
+```
+
+> **Windows users:** if `python3` doesn't work, try `python` instead.
+
+It will ask you three things:
+1. **What's your name?** → type your name
+2. **Where are you flying in from?** → type your city (e.g. `Kansas City`)
+3. **Paste the JSON** → paste the output from AI Studio, then type **END** on a new line and press **Enter**
+
+---
+
+## Step 6 — Push to GitHub 🚀
+
+Run these three commands one at a time:
+
+```
 git add .
+```
+
+```
 git commit -m "Add my bird"
+```
+
+```
 git push
 ```
 
-> You may be asked for your GitHub username and a **Personal Access Token** (not your password).
-> Get one at: https://github.com/settings/tokens → Classic token → check `repo`
+> When asked for your password, use your **Personal Access Token** (from the prerequisites), NOT your GitHub password.
 
 ---
 
-## Step 6 — Watch the Sky! 👀
+## Step 7 — Watch the Sky! 👀
 
 Look at the projector screen at:
 **https://mpsiebert.github.io/BirdsBirdBirds/**
 
 Your bird should appear within **~30 seconds**! 🎉
+
+---
+
+## Troubleshooting 🔧
+
+| Problem | Solution |
+|---|---|
+| `file not found` or `no such directory` | Make sure you ran `cd BirdsBirdBirds` first |
+| `python3: command not found` | Try `python` instead (Windows) |
+| `git push` rejected | Run `git pull` first, then try pushing again |
+| `authentication failed` | Use your Personal Access Token, not your password |
 
 ---
 
