@@ -3,125 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birds Birds Birds - Live Display</title>
+    <title>Birds Birds Birds – MLH AI Roadshow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --mlh-navy:   #0B1D30;
-            --mlh-red:    #E73427;
-            --mlh-blue:   #1D539F;
-            --mlh-yellow: #F0C142;
-            --mlh-white:  #FFFFFF;
-            --mlh-gray:   #303030;
+            --lime:       #CCFF00;
+            --navy:       #1E1E3A;
+            --periwinkle: #8888DD;
+            --light-peri: #AAAAEE;
+            --dark:       #151528;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Press Start 2P', monospace;
+            font-family: 'Space Grotesk', sans-serif;
             overflow: hidden;
             height: 100vh;
             width: 100vw;
             position: relative;
-            image-rendering: pixelated;
-            background: var(--mlh-navy);
+            background: var(--lime);
         }
 
-        /* Light neutral sky so birds are visible */
-        #sky-bg {
-            position: absolute; inset: 0;
-            background: linear-gradient(180deg,
-                #d4e8f7 0%,
-                #e8f2fc 25%,
-                #f0f6fd 50%,
-                #f8fbff 70%,
-                #eff4f9 100%
-            );
-        }
-
-        /* Pixel clouds in MLH white/light blue */
-        .cloud {
+        /* Wavy decorative lines */
+        .wave-line {
             position: absolute;
-            background: rgba(255,255,255,0.7);
-            border-bottom: 4px solid rgba(29,83,159,0.08);
-            animation: drift 80s linear infinite;
+            width: 200vw;
+            height: 40px;
+            opacity: 0.12;
+            z-index: 1;
         }
-        @keyframes drift {
+        .wave-line svg { width: 100%; height: 100%; }
+        .wave-line svg path { stroke: var(--navy); stroke-width: 3; fill: none; }
+        .wave-1 { top: 15vh; animation: wave-drift 30s linear infinite; }
+        .wave-2 { top: 45vh; animation: wave-drift 40s linear infinite reverse; }
+        .wave-3 { top: 75vh; animation: wave-drift 35s linear infinite; }
+
+        @keyframes wave-drift {
             0%   { transform: translateX(0); }
-            100% { transform: translateX(-60vw); }
+            100% { transform: translateX(-50%); }
         }
 
-        /* Scrolling pixel ground in MLH navy */
-        #ground {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            background: repeating-linear-gradient(90deg,
-                var(--mlh-navy) 0px, var(--mlh-navy) 40px,
-                #122a42 40px, #122a42 80px
-            );
-            border-top: 4px solid var(--mlh-red);
-            z-index: 100;
-            animation: scroll-ground 8s linear infinite;
-        }
-        @keyframes scroll-ground {
-            0%   { background-position: 0 0; }
-            100% { background-position: -80px 0; }
-        }
-
-        /* HUD - MLH branded */
+        /* Header area */
         #hud {
             position: fixed;
-            top: 16px;
-            left: 20px;
+            top: 30px;
+            left: 36px;
             z-index: 999;
-            color: var(--mlh-navy);
-            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
-            font-size: 13px;
-            line-height: 2;
         }
-        #hud .accent {
-            color: var(--mlh-red);
+        #hud .small {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--navy);
+            opacity: 0.6;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        #hud .title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
         }
 
-        /* Bird counter in MLH red */
+        /* Bird counter — stamp style */
         #bird-count {
             position: fixed;
-            top: 16px;
-            right: 20px;
+            top: 30px;
+            right: 36px;
             z-index: 999;
-            font-size: 10px;
-            color: var(--mlh-white);
-            background: var(--mlh-red);
-            padding: 8px 14px;
-            border: 3px solid var(--mlh-navy);
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            border: 3px solid var(--navy);
+            border-radius: 50%;
+            text-align: center;
+            color: var(--navy);
+        }
+        #bird-count .number {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        #bird-count .label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+            margin-top: 2px;
         }
 
         /* Credits */
         #credits {
             position: fixed;
-            bottom: 74px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
-            font-size: 6px;
-            color: var(--mlh-navy);
+            font-size: 11px;
+            color: var(--navy);
             opacity: 0.35;
             white-space: nowrap;
+            letter-spacing: 0.03em;
         }
 
-        /* Subtle scanlines */
-        #scanlines {
-            position: fixed; inset: 0;
-            z-index: 998;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                transparent 0px, transparent 3px,
-                rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 6px
-            );
+        /* Sponsor bar */
+        #sponsors {
+            position: fixed;
+            bottom: 20px;
+            right: 36px;
+            z-index: 999;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .sponsor-badge {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--lime);
+            background: var(--navy);
+            padding: 6px 14px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         /* Birds */
@@ -130,77 +140,110 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             will-change: transform;
         }
 
         .bird {
-            max-width: 180px;
-            max-height: 180px;
+            max-width: 160px;
+            max-height: 160px;
             display: block;
-            image-rendering: pixelated;
             animation: flap 0.4s ease-in-out infinite alternate;
         }
 
         @keyframes flap {
             0%   { transform: scaleY(1) scaleX(1) rotate(0deg); }
-            100% { transform: scaleY(0.92) scaleX(1.06) rotate(1.5deg); }
+            100% { transform: scaleY(0.93) scaleX(1.05) rotate(1.2deg); }
         }
 
-        /* Bird labels - MLH navy + yellow accent */
+        /* Bird labels — dark navy pill */
         .bird-label {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 6px;
-            color: var(--mlh-yellow);
-            background: var(--mlh-navy);
-            border: 2px solid var(--mlh-blue);
-            padding: 4px 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--lime);
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 5px 14px;
             white-space: nowrap;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+            letter-spacing: 0.03em;
         }
 
         #sky { position: absolute; inset: 0; z-index: 50; }
+
+        /* Decorative periwinkle circles */
+        .deco-circle {
+            position: absolute;
+            border: 2px solid var(--periwinkle);
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 2;
+        }
     </style>
     <style id="dynamic-keyframes"></style>
 </head>
 <body>
 
-    <div id="sky-bg"></div>
-    <div id="scanlines"></div>
-
-    <div id="hud">
-        <span class="accent">WHO'S FLYING TO THE</span><br>
-        MLH AI ROADSHOW?
+    <!-- Decorative wavy lines -->
+    <div class="wave-line wave-1">
+        <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
+            <path d="M0,20 Q30,0 60,20 Q90,40 120,20 Q150,0 180,20 Q210,40 240,20 Q270,0 300,20 Q330,40 360,20 Q390,0 420,20 Q450,40 480,20 Q510,0 540,20 Q570,40 600,20 Q630,0 660,20 Q690,40 720,20 Q750,0 780,20 Q810,40 840,20 Q870,0 900,20 Q930,40 960,20 Q990,0 1020,20 Q1050,40 1080,20 Q1110,0 1140,20 Q1170,40 1200,20 Q1230,0 1260,20 Q1290,40 1320,20 Q1350,0 1380,20 Q1410,40 1440,20 Q1470,0 1500,20 Q1530,40 1560,20 Q1590,0 1620,20 Q1650,40 1680,20 Q1710,0 1740,20 Q1770,40 1800,20 Q1830,0 1860,20 Q1890,40 1920,20 Q1950,0 1980,20 Q2010,40 2040,20 Q2070,0 2100,20 Q2130,40 2160,20 Q2190,0 2220,20 Q2250,40 2280,20 Q2310,0 2340,20 Q2370,40 2400,20"/>
+        </svg>
+    </div>
+    <div class="wave-line wave-2">
+        <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
+            <path d="M0,20 Q30,0 60,20 Q90,40 120,20 Q150,0 180,20 Q210,40 240,20 Q270,0 300,20 Q330,40 360,20 Q390,0 420,20 Q450,40 480,20 Q510,0 540,20 Q570,40 600,20 Q630,0 660,20 Q690,40 720,20 Q750,0 780,20 Q810,40 840,20 Q870,0 900,20 Q930,40 960,20 Q990,0 1020,20 Q1050,40 1080,20 Q1110,0 1140,20 Q1170,40 1200,20 Q1230,0 1260,20 Q1290,40 1320,20 Q1350,0 1380,20 Q1410,40 1440,20 Q1470,0 1500,20 Q1530,40 1560,20 Q1590,0 1620,20 Q1650,40 1680,20 Q1710,0 1740,20 Q1770,40 1800,20 Q1830,0 1860,20 Q1890,40 1920,20 Q1950,0 1980,20 Q2010,40 2040,20 Q2070,0 2100,20 Q2130,40 2160,20 Q2190,0 2220,20 Q2250,40 2280,20 Q2310,0 2340,20 Q2370,40 2400,20"/>
+        </svg>
+    </div>
+    <div class="wave-line wave-3">
+        <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
+            <path d="M0,20 Q30,0 60,20 Q90,40 120,20 Q150,0 180,20 Q210,40 240,20 Q270,0 300,20 Q330,40 360,20 Q390,0 420,20 Q450,40 480,20 Q510,0 540,20 Q570,40 600,20 Q630,0 660,20 Q690,40 720,20 Q750,0 780,20 Q810,40 840,20 Q870,0 900,20 Q930,40 960,20 Q990,0 1020,20 Q1050,40 1080,20 Q1110,0 1140,20 Q1170,40 1200,20"/>
+        </svg>
     </div>
 
-    <div id="bird-count">BIRDS: 0</div>
-    <div id="credits">MADE WITH LOVE BY THE MLH AI ROADSHOW TEAM</div>
+    <div id="hud">
+        <div class="small">Who's flying to the</div>
+        <div class="title">MLH AI<br>Roadshow?</div>
+    </div>
+
+    <div id="bird-count">
+        <div class="number" id="count-num">0</div>
+        <div class="label">birds</div>
+    </div>
+
+    <div id="credits">made with ♥ by the MLH AI Roadshow Team</div>
+
+    <div id="sponsors">
+        <span class="sponsor-badge">Google Cloud</span>
+        <span class="sponsor-badge">MLH</span>
+    </div>
 
     <div id="sky"></div>
-    <div id="ground"></div>
 
     <script>
-        // Generate pixel clouds
+        // Decorative circles
         (function() {
-            const bg = document.getElementById('sky-bg');
-            for (let i = 0; i < 8; i++) {
-                const c = document.createElement('div');
-                c.className = 'cloud';
-                c.style.width  = (80 + Math.random() * 150) + 'px';
-                c.style.height = (20 + Math.random() * 28) + 'px';
-                c.style.left   = Math.random() * 120 + 'vw';
-                c.style.top    = (5 + Math.random() * 50) + 'vh';
-                c.style.opacity = 0.4 + Math.random() * 0.3;
-                c.style.animationDelay = (-Math.random() * 60) + 's';
-                c.style.animationDuration = (50 + Math.random() * 50) + 's';
-                bg.appendChild(c);
-            }
+            const body = document.body;
+            const positions = [
+                {w:180, x:'75vw', y:'12vh'},
+                {w:120, x:'85vw', y:'65vh'},
+                {w:60,  x:'10vw', y:'80vh'},
+                {w:200, x:'60vw', y:'85vh'},
+            ];
+            positions.forEach(p => {
+                const d = document.createElement('div');
+                d.className = 'deco-circle';
+                d.style.width = d.style.height = p.w + 'px';
+                d.style.left = p.x;
+                d.style.top  = p.y;
+                body.appendChild(d);
+            });
         })();
 
         let seenBirds = new Set();
         const sky        = document.getElementById('sky');
         const kfStyle    = document.getElementById('dynamic-keyframes');
-        const countLabel = document.getElementById('bird-count');
+        const countNum   = document.getElementById('count-num');
 
         function removeWhiteBackground(img) {
             try {
@@ -231,7 +274,7 @@
                         addBirdToSky(bird);
                     }
                 });
-                countLabel.textContent = 'BIRDS: ' + seenBirds.size;
+                countNum.textContent = seenBirds.size;
             } catch (e) { console.warn('Manifest fetch error:', e); }
         }
 
@@ -241,7 +284,7 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'bird-wrapper';
             wrapper.id        = bird.id;
-            wrapper.style.top = (Math.random() * 55 + 5) + 'vh';
+            wrapper.style.top = (Math.random() * 60 + 10) + 'vh';
             wrapper.style.zIndex = Math.floor(Math.random() * 50) + 51;
 
             const dur    = bird.animation.duration  || '18s';
@@ -258,9 +301,9 @@
             if (bird.bird_name || bird.origin) {
                 const label = document.createElement('div');
                 label.className = 'bird-label';
-                const n = (bird.bird_name || 'ANON').toUpperCase();
-                const o = (bird.origin || '').toUpperCase();
-                label.textContent = o ? n + ' // ' + o : n;
+                const n = bird.bird_name || 'Anon';
+                const o = bird.origin || '';
+                label.textContent = o ? n + ' · ' + o : n;
                 wrapper.appendChild(label);
             }
 
