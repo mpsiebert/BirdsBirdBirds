@@ -2,8 +2,6 @@ name: Process New Birds
 
 on:
   push:
-    paths:
-      - 'birds/**'
     branches:
       - main
 
