@@ -113,6 +113,20 @@ def main():
             if img_path not in existing_images:
                 print(f"New bird detected: {filename}")
                 
+                 # Check for metadata sidecar file
+                meta_path = f"{img_path}.meta.json"
+                bird_name = "Anonymous"
+                origin = "GitHub"
+                
+                if os.path.exists(meta_path):
+                    try:
+                        with open(meta_path, "r") as f:
+                            meta = json.load(f)
+                            bird_name = meta.get("bird_name", "Anonymous")
+                            origin = meta.get("origin", "GitHub")
+                    except Exception as e:
+                        print(f"Error reading metadata for {filename}: {e}")
+
                 # 1. Process image
                 if not process_image(img_path):
                     continue
@@ -123,24 +137,27 @@ def main():
                 
                 if bird_data and bird_data.get("status") == "APPROVED":
                     # 3. Add to manifest
-                    # Attempt to get bird name from filename if possible, else "New Bird"
-                    name_parts = filename.rsplit('.', 1)
-                    display_name = name_parts[0].replace('_', ' ').title() if name_parts else "New Bird"
-                    
                     entry = {
                         "id": bird_id,
                         "image": img_path,
-                        "bird_name": display_name,
-                        "origin": "GitHub",
+                        "bird_name": bird_name,
+                        "origin": origin,
                         "animation": bird_data["animation"]
                     }
                     if not isinstance(manifest, list):
                         manifest = []
                     manifest.append(entry)
                     new_birds_added = True
-                    print(f"✅ Approved and added: {display_name}")
+                    print(f"✅ Approved and added: {bird_name}")
+                    
+                    # Cleanup metadata file
+                    if os.path.exists(meta_path):
+                        os.remove(meta_path)
                 elif bird_data:
                     print(f"🚫 Rejected {filename}: {bird_data.get('reason', 'No reason provided')}")
+                    # Even if rejected, we might want to cleanup the meta file
+                    if os.path.exists(meta_path):
+                        os.remove(meta_path)
 
     if new_birds_added:
         with open(MANIFEST_PATH, "w") as f:
