@@ -58,6 +58,8 @@ def get_bird_data(model, img_path, bird_id):
         It must NOT contain: Nudity, sexual content, hate symbols, slurs, violence, drugs/alcohol, or harassment.
         It should also be a drawing of a bird (or a creative interpretation of one).
 
+        Return ONLY a valid JSON object. Do not include any preamble, markdown formatting (like ```json), or post-script text.
+
         PART 2: ANIMATION
         If approved, generate CSS keyframes for this bird flying across a screen.
         Ensure it starts off-screen left (-20vw) and ends off-screen right (120vw).
@@ -81,7 +83,8 @@ def get_bird_data(model, img_path, bird_id):
         try:
             return json.loads(json_text)
         except json.JSONDecodeError:
-            print(f"Failed to parse JSON for {img_path}. Raw response: {text}")
+            print(f"❌ Failed to parse JSON for {img_path}.")
+            print(f"--- RAW RESPONSE START ---\n{text}\n--- RAW RESPONSE END ---")
             return None
     except Exception as e:
         print(f"Error getting bird data for {img_path}: {e}")
@@ -129,6 +132,9 @@ def main():
             
             if img_path not in existing_images:
                 print(f"New bird detected: {filename}")
+            else:
+                # Debug: print(f"Skipping {filename}, already in manifest.")
+                continue
                 
                  # Check for metadata sidecar file
                 meta_path = f"{img_path}.meta.json"
