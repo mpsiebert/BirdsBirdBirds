@@ -76,14 +76,31 @@ def get_bird_data(model, img_path, bird_id):
         """
         response = model.generate_content([prompt, img])
         text = response.text
-        match = re.search(r'```(?:json)?(.*?)```', text, re.DOTALL)
-        if match:
-            text = match.group(1).strip()
+        json_text = extract_json(text)
         
-        return json.loads(text)
+        try:
+            return json.loads(json_text)
+        except json.JSONDecodeError:
+            print(f"Failed to parse JSON for {img_path}. Raw response: {text}")
+            return None
     except Exception as e:
         print(f"Error getting bird data for {img_path}: {e}")
         return None
+
+def extract_json(text):
+    """Extraction logic to find JSON in a string, handling markdown or preamble."""
+    # Attempt to find markdown code block
+    match = re.search(r'```(?:json)?(.*?)```', text, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    
+    # Attempt to find first { and last }
+    start = text.find('{')
+    end = text.rfind('}')
+    if start != -1 and end != -1 and end > start:
+        return text[start:end+1]
+        
+    return text.strip()
 
 def main():
     if not os.path.exists(BIRDS_DIR):
@@ -135,29 +152,35 @@ def main():
                 bird_id = f"bird_{uuid.uuid4().hex[:8]}"
                 bird_data = get_bird_data(model, img_path, bird_id)
                 
-                if bird_data and bird_data.get("status") == "APPROVED":
-                    # 3. Add to manifest
-                    entry = {
-                        "id": bird_id,
-                        "image": img_path,
-                        "bird_name": bird_name,
-                        "origin": origin,
-                        "animation": bird_data["animation"]
-                    }
-                    if not isinstance(manifest, list):
-                        manifest = []
-                    manifest.append(entry)
-                    new_birds_added = True
-                    print(f"✅ Approved and added: {bird_name}")
+                if bird_data:
+                    # Clean up the status for case-insensitivity
+                    status = bird_data.get("status", "").upper()
                     
-                    # Cleanup metadata file
-                    if os.path.exists(meta_path):
-                        os.remove(meta_path)
-                elif bird_data:
-                    print(f"🚫 Rejected {filename}: {bird_data.get('reason', 'No reason provided')}")
-                    # Even if rejected, we might want to cleanup the meta file
-                    if os.path.exists(meta_path):
-                        os.remove(meta_path)
+                    if status == "APPROVED":
+                        # 3. Add to manifest
+                        entry = {
+                            "id": bird_id,
+                            "image": img_path,
+                            "bird_name": bird_name,
+                            "origin": origin,
+                            "animation": bird_data["animation"]
+                        }
+                        if not isinstance(manifest, list):
+                            manifest = []
+                        manifest.append(entry)
+                        new_birds_added = True
+                        print(f"✅ Approved and added: {bird_name}")
+                        
+                        # Cleanup metadata file
+                        if os.path.exists(meta_path):
+                            os.remove(meta_path)
+                    else:
+                        print(f"🚫 Rejected {filename}: {bird_data.get('reason', 'No reason provided')}")
+                        # Cleanup metadata file on rejection too
+                        if os.path.exists(meta_path):
+                            os.remove(meta_path)
+                else:
+                    print(f"⚠️ Could not get bird data for {filename}. Check API logs.")
 
     if new_birds_added:
         with open(MANIFEST_PATH, "w") as f:
