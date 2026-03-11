@@ -178,5 +178,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_89f74c89",
+    "image": "birds/test_moderationcheck.png",
+    "bird_name": "testing",
+    "origin": "test!!!!!! hopefully this does not appear",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_89f74c89 { 0% { transform: translate(-20vw, 68vh); } 100% { transform: translate(120vw, 50vh); } }",
+      "animation_name": "fly_bird_89f74c89",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
