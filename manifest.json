@@ -154,5 +154,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_f5880351",
+    "image": "birds/kiwi.png",
+    "bird_name": "kiwi bird",
+    "origin": "midtown",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_f5880351 { 0% { transform: translate(-20vw, 35vh); } 100% { transform: translate(120vw, 13vh); } }",
+      "animation_name": "fly_bird_f5880351",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
