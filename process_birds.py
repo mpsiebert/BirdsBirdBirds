@@ -18,7 +18,7 @@ def setup_gemini():
         print("Error: GOOGLE_GEMINI_API_KEY environment variable not set.")
         sys.exit(1)
     genai.configure(api_key=GEMINI_API_KEY)
-    return genai.GenerativeModel('gemini-1.5-flash')
+    return genai.GenerativeModel('gemini-1.5-flash-latest')
 
 def process_image(img_path):
     """Removes white background and crops the image."""
