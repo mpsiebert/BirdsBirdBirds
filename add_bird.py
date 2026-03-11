@@ -158,6 +158,7 @@ def push_to_github():
         subprocess.run(["git", "commit", "-m", "New bird submission with metadata"], check=True)
         
         print("Pushing to GitHub...")
+        subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=True)
         subprocess.run(["git", "push"], check=True)
         
         print("\n\033[92m✨ SUCCESS! ✨\033[0m")
