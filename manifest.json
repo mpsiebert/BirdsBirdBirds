@@ -46,5 +46,89 @@
     },
     "origin": "NYC, NY",
     "bird_name": "Ryan Swift"
+  },
+  {
+    "id": "bird_37f32278",
+    "image": "birds/mynextbird.png",
+    "bird_name": "MP Bird",
+    "origin": "Kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_37f32278 { 0% { transform: translate(-20vw, 41vh); } 100% { transform: translate(120vw, 53vh); } }",
+      "animation_name": "fly_bird_37f32278",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_546d9b6c",
+    "image": "birds/anotherburd.png",
+    "bird_name": "MP",
+    "origin": "kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_546d9b6c { 0% { transform: translate(-20vw, 11vh); } 100% { transform: translate(120vw, 42vh); } }",
+      "animation_name": "fly_bird_546d9b6c",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_aa79ac76",
+    "image": "birds/testingbird.png",
+    "bird_name": "MP",
+    "origin": "kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_aa79ac76 { 0% { transform: translate(-20vw, 40vh); } 100% { transform: translate(120vw, 59vh); } }",
+      "animation_name": "fly_bird_aa79ac76",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_ba5dd666",
+    "image": "birds/buuuurd.png",
+    "bird_name": "mary",
+    "origin": "kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_ba5dd666 { 0% { transform: translate(-20vw, 46vh); } 100% { transform: translate(120vw, 33vh); } }",
+      "animation_name": "fly_bird_ba5dd666",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_cfbfdacc",
+    "image": "birds/mynewbirdokay.png",
+    "bird_name": "MP bird",
+    "origin": "kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_cfbfdacc { 0% { transform: translate(-20vw, 63vh); } 100% { transform: translate(120vw, 13vh); } }",
+      "animation_name": "fly_bird_cfbfdacc",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_22b6c806",
+    "image": "birds/mynewnewbird.png",
+    "bird_name": "Mary",
+    "origin": "kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_22b6c806 { 0% { transform: translate(-20vw, 10vh); } 100% { transform: translate(120vw, 25vh); } }",
+      "animation_name": "fly_bird_22b6c806",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_3de16323",
+    "image": "birds/anotherbirrrrd.png",
+    "bird_name": "mp bird",
+    "origin": "kansas",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_3de16323 { 0% { transform: translate(-20vw, 68vh); } 100% { transform: translate(120vw, 22vh); } }",
+      "animation_name": "fly_bird_3de16323",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
