@@ -77,7 +77,14 @@ def get_bird_data(model, img_path, bird_id):
         }}
         """
         response = model.generate_content([prompt, img])
-        text = response.text
+        try:
+            text = response.text
+        except ValueError:
+            # This happens if the model blocked the response for safety
+            print(f"🚫 AI blocked the request for {img_path} (Safety Filters).")
+            print(f"Feedback: {response.prompt_feedback}")
+            return {"status": "REJECTED", "reason": "Safety filter blocked the image."}
+
         json_text = extract_json(text)
         
         try:
