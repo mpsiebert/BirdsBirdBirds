@@ -130,5 +130,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_809807a3",
+    "image": "birds/duck.png",
+    "bird_name": "mary2",
+    "origin": "nyc!",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_809807a3 { 0% { transform: translate(-20vw, 63vh); } 100% { transform: translate(120vw, 62vh); } }",
+      "animation_name": "fly_bird_809807a3",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
