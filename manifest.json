@@ -34,5 +34,17 @@
     },
     "origin": "kc",
     "bird_name": "mp"
+  },
+  {
+    "id": "bird_DUCK",
+    "image": "birds/burd.png",
+    "animation": {
+      "css_keyframes": "@keyframes fly_DUCK { 0% { transform: translate(-20vw, 50vh) rotate(5deg) scale(1); } 15% { transform: translate(5vw, 20vh) rotate(-15deg) scale(0.9); } 35% { transform: translate(30vw, 75vh) rotate(15deg) scale(1.15); } 55% { transform: translate(60vw, 15vh) rotate(-10deg) scale(0.85); } 75% { transform: translate(90vw, 60vh) rotate(10deg) scale(1.1); } 100% { transform: translate(120vw, 35vh) rotate(-5deg) scale(1); } }",
+      "animation_name": "fly_DUCK",
+      "duration": "16s",
+      "timing_function": "ease-in-out"
+    },
+    "origin": "NYC, NY",
+    "bird_name": "Ryan Swift"
   }
 ]
