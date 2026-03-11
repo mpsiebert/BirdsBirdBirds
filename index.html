@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --lime:       #CCFF00;
+            --lime: #CCFF00;
             --periwinkle: #8888DD;
-            --charcoal:   #3D3D50;
-            --dark:       #333345;
+            --charcoal: #3D3D50;
+            --dark: #333345;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Space Grotesk', sans-serif;
@@ -38,8 +43,6 @@
             background-size: 256px 256px;
         }
 
-
-
         /* Header */
         #hud {
             position: fixed;
@@ -47,6 +50,7 @@
             left: 32px;
             z-index: 999;
         }
+
         #hud .title {
             font-size: 22px;
             font-weight: 700;
@@ -75,7 +79,7 @@
             transform: translateX(-50%);
             z-index: 999;
             font-size: 11px;
-            color: rgba(255,255,255,0.18);
+            color: rgba(255, 255, 255, 0.18);
             white-space: nowrap;
             letter-spacing: 0.03em;
         }
@@ -95,14 +99,17 @@
             max-height: 240px;
             display: block;
             animation: flap 0.4s ease-in-out infinite alternate;
-            filter: contrast(1.3) brightness(1.15)
-                    drop-shadow(0 0 18px rgba(204,255,0,0.25))
-                    drop-shadow(0 0 40px rgba(136,136,221,0.15));
+            filter: contrast(1.3) brightness(1.15) drop-shadow(0 0 18px rgba(204, 255, 0, 0.25)) drop-shadow(0 0 40px rgba(136, 136, 221, 0.15));
         }
 
         @keyframes flap {
-            0%   { transform: scaleY(1) scaleX(1) rotate(0deg); }
-            100% { transform: scaleY(0.93) scaleX(1.05) rotate(1.2deg); }
+            0% {
+                transform: scaleY(1) scaleX(1) rotate(0deg);
+            }
+
+            100% {
+                transform: scaleY(0.93) scaleX(1.05) rotate(1.2deg);
+            }
         }
 
         /* Bird name labels — neon lime + periwinkle gradient border */
@@ -111,7 +118,7 @@
             font-size: 10px;
             font-weight: 700;
             color: var(--lime);
-            background: rgba(30,30,50,0.8);
+            background: rgba(30, 30, 50, 0.8);
             backdrop-filter: blur(6px);
             border: 1.5px solid var(--periwinkle);
             border-radius: 20px;
@@ -119,14 +126,20 @@
             white-space: nowrap;
             letter-spacing: 0.03em;
         }
+
         .bird-label .origin {
             color: var(--periwinkle);
         }
 
-        #sky { position: absolute; inset: 0; z-index: 50; }
+        #sky {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+        }
     </style>
     <style id="dynamic-keyframes"></style>
 </head>
+
 <body>
 
     <div id="hud">
@@ -141,26 +154,26 @@
 
     <script>
         let seenBirds = new Set();
-        const sky        = document.getElementById('sky');
-        const kfStyle    = document.getElementById('dynamic-keyframes');
+        const sky = document.getElementById('sky');
+        const kfStyle = document.getElementById('dynamic-keyframes');
         const countLabel = document.getElementById('bird-count');
 
         function removeWhiteBackground(img) {
             try {
                 const canvas = document.createElement('canvas');
-                canvas.width  = img.naturalWidth;
+                canvas.width = img.naturalWidth;
                 canvas.height = img.naturalHeight;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
                 const d = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 for (let i = 0; i < d.data.length; i += 4) {
-                    if (d.data[i] > 235 && d.data[i+1] > 235 && d.data[i+2] > 235) {
-                        d.data[i+3] = 0;
+                    if (d.data[i] > 235 && d.data[i + 1] > 235 && d.data[i + 2] > 235) {
+                        d.data[i + 3] = 0;
                     }
                 }
                 ctx.putImageData(d, 0, 0);
                 img.src = canvas.toDataURL('image/png');
-            } catch(e) { console.warn('Image processing failed:', e); }
+            } catch (e) { console.warn('Image processing failed:', e); }
         }
 
         async function fetchManifest() {
@@ -183,19 +196,19 @@
 
             const wrapper = document.createElement('div');
             wrapper.className = 'bird-wrapper';
-            wrapper.id        = bird.id;
+            wrapper.id = bird.id;
             wrapper.style.top = (Math.random() * 65 + 8) + 'vh';
             wrapper.style.zIndex = Math.floor(Math.random() * 50) + 51;
 
-            const dur    = bird.animation.duration  || '18s';
+            const dur = bird.animation.duration || '18s';
             const timing = bird.animation.timing_function || 'ease-in-out';
             wrapper.style.animation = bird.animation.animation_name + ' ' + dur + ' ' + timing + ' infinite';
 
             const img = document.createElement('img');
             img.crossOrigin = 'anonymous';
-            img.src       = bird.image;
+            img.src = bird.image;
             img.className = 'bird';
-            img.onload = function() { removeWhiteBackground(img); };
+            img.onload = function () { removeWhiteBackground(img); };
             wrapper.appendChild(img);
 
             if (bird.bird_name || bird.origin) {
@@ -218,4 +231,5 @@
         fetchManifest();
     </script>
 </body>
+
 </html>
