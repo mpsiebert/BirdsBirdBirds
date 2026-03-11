@@ -50,7 +50,7 @@ def get_bird_data(model, img_path, bird_id):
     """Calls Gemini to moderate the image and generate flight animation CSS."""
     try:
         img = Image.open(img_path)
-        prompt = f"""
+        prompt = """
         You are a content moderator and animator for a family-friendly event run by Major League Hacking (MLH).
         
         PART 1: MODERATION
@@ -64,13 +64,13 @@ def get_bird_data(model, img_path, bird_id):
             "status": "APPROVED",
             "reason": "",
             "animation": {
-                "css_keyframes": "@keyframes fly_{bird_id} { ... }",
-                "animation_name": "fly_{bird_id}",
+                "css_keyframes": "@keyframes fly_BIRDID { ... }",
+                "animation_name": "fly_BIRDID",
                 "duration": "18s",
                 "timing_function": "ease-in-out"
             }
         }
-        """
+        """.replace("BIRDID", bird_id)
         response = model.generate_content([prompt, img])
         try:
             text = response.text
