@@ -162,8 +162,12 @@ def push_to_github():
         subprocess.run(["git", "push"], check=True)
         
         print("\n\033[92m✨ SUCCESS! ✨\033[0m")
-        print("Your bird is on its way to the big screen.")
-        print("It should appear at https://mpsiebert.github.io/BirdsBirdBirds/ in ~1 minute.")
+        print("Your bird is on its way to the cloud.")
+        print("\n\033[96mGoogle Gemini is now:\033[0m")
+        print("1. 🧹 Removing your drawing's background")
+        print("2. 🤖 Checking if it's a safe bird drawing")
+        print("3. 🎨 Generating a unique flight animation for YOU!")
+        print("\nIt should appear at https://mpsiebert.github.io/BirdsBirdBirds/ in ~1 minute.")
         input("\nPress Enter to finish...")
     except subprocess.CalledProcessError as e:
         print(f"\n\033[91mError during Git commands:\033[0m {e}")
