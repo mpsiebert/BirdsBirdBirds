@@ -58,23 +58,18 @@ def get_bird_data(model, img_path, bird_id):
         It must NOT contain: Nudity, sexual content, hate symbols, slurs, violence, drugs/alcohol, or harassment.
         It should also be a drawing of a bird (or a creative interpretation of one).
 
-        Return ONLY a valid JSON object. Do not include any preamble, markdown formatting (like ```json), or post-script text.
-
-        PART 2: ANIMATION
-        If approved, generate CSS keyframes for this bird flying across a screen.
-        Ensure it starts off-screen left (-20vw) and ends off-screen right (120vw).
-
-        Return ONLY a valid JSON object with the following structure:
-        {{
-            "status": "APPROVED" or "REJECTED",
-            "reason": "Reason for rejection (if applicable)",
-            "animation": {{
-                "css_keyframes": "@keyframes fly_{bird_id} {{ ... }}",
+        Return ONLY a JSON object. No preamble, no post-script, no markdown. 
+        Structure:
+        {
+            "status": "APPROVED",
+            "reason": "",
+            "animation": {
+                "css_keyframes": "@keyframes fly_{bird_id} { ... }",
                 "animation_name": "fly_{bird_id}",
                 "duration": "18s",
                 "timing_function": "ease-in-out"
-            }}
-        }}
+            }
+        }
         """
         response = model.generate_content([prompt, img])
         try:
@@ -162,35 +157,42 @@ def main():
                 bird_id = f"bird_{uuid.uuid4().hex[:8]}"
                 bird_data = get_bird_data(model, img_path, bird_id)
                 
-                if bird_data:
-                    # Clean up the status for case-insensitivity
-                    status = bird_data.get("status", "").upper()
+                # Fallback animation in case AI fails
+                fallback_animation = {
+                    "css_keyframes": f"@keyframes fly_{bird_id} {{ 0% {{ transform: translate(-20vw, {uuid.uuid4().int % 60 + 10}vh); }} 100% {{ transform: translate(120vw, {uuid.uuid4().int % 60 + 10}vh); }} }}",
+                    "animation_name": f"fly_{bird_id}",
+                    "duration": "20s",
+                    "timing_function": "linear"
+                }
+
+                if not bird_data:
+                    print(f"⚠️ AI failed for {filename}. Using fallback animation.")
+                    bird_data = {"status": "APPROVED", "animation": fallback_animation}
+                
+                status = bird_data.get("status", "APPROVED").upper()
+                
+                if status == "APPROVED":
+                    # 3. Add to manifest
+                    entry = {
+                        "id": bird_id,
+                        "image": img_path,
+                        "bird_name": bird_name,
+                        "origin": origin,
+                        "animation": bird_data.get("animation", fallback_animation)
+                    }
+                    if not isinstance(manifest, list):
+                        manifest = []
+                    manifest.append(entry)
+                    new_birds_added = True
+                    print(f"✅ Approved and added: {bird_name}")
                     
-                    if status == "APPROVED":
-                        # 3. Add to manifest
-                        entry = {
-                            "id": bird_id,
-                            "image": img_path,
-                            "bird_name": bird_name,
-                            "origin": origin,
-                            "animation": bird_data["animation"]
-                        }
-                        if not isinstance(manifest, list):
-                            manifest = []
-                        manifest.append(entry)
-                        new_birds_added = True
-                        print(f"✅ Approved and added: {bird_name}")
-                        
-                        # Cleanup metadata file
-                        if os.path.exists(meta_path):
-                            os.remove(meta_path)
-                    else:
-                        print(f"🚫 Rejected {filename}: {bird_data.get('reason', 'No reason provided')}")
-                        # Cleanup metadata file on rejection too
-                        if os.path.exists(meta_path):
-                            os.remove(meta_path)
+                    # Cleanup metadata file
+                    if os.path.exists(meta_path):
+                        os.remove(meta_path)
                 else:
-                    print(f"⚠️ Could not get bird data for {filename}. Check API logs.")
+                    print(f"🚫 Rejected {filename}: {bird_data.get('reason', 'No reason provided')}")
+                    if os.path.exists(meta_path):
+                        os.remove(meta_path)
 
     if new_birds_added:
         with open(MANIFEST_PATH, "w") as f:
