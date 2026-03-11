@@ -139,9 +139,6 @@ def main():
             
             if img_path not in existing_images:
                 print(f"New bird detected: {filename}")
-            else:
-                # Debug: print(f"Skipping {filename}, already in manifest.")
-                continue
                 
                  # Check for metadata sidecar file
                 meta_path = f"{img_path}.meta.json"
