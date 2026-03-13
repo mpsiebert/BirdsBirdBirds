@@ -190,5 +190,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_163de890",
+    "image": "birds/greenbird.png",
+    "bird_name": "Mary",
+    "origin": "NYC",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_163de890 { 0% { transform: translate(-20vw, 10vh); } 100% { transform: translate(120vw, 58vh); } }",
+      "animation_name": "fly_bird_163de890",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
