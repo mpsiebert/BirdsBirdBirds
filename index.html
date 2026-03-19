@@ -24,64 +24,89 @@
         body {
             font-family: 'Space Grotesk', sans-serif;
             overflow: hidden;
+            background: linear-gradient(180deg,
+                    #a8d8f0 0%,
+                    #c5e8f5 40%,
+                    #ddf1fd 70%,
+                    #eef8ff 100%);
             height: 100vh;
             width: 100vw;
             background: var(--charcoal);
             position: relative;
         }
 
-        /* Subtle noise texture overlay */
-        body::before {
+        /* subtle cloud-like circles */
+        body::before,
+        body::after {
             content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.06;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 256px 256px;
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            filter: blur(60px);
         }
 
-        /* Header */
-        #hud {
-            position: fixed;
-            top: 28px;
-            left: 32px;
-            z-index: 999;
+        body::before {
+            width: 500px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
         }
 
-        #hud .title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--lime);
-            line-height: 1.4;
-            letter-spacing: -0.01em;
+        body::after {
+            width: 400px;
+            height: 200px;
+            top: 20%;
+            right: 10%;
         }
 
-        /* Bird counter */
-        #bird-count {
-            position: fixed;
-            top: 34px;
-            right: 36px;
-            z-index: 999;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--periwinkle);
-            letter-spacing: 0.02em;
-        }
-
-        /* Credits */
+        /* Made with love footer */
         #credits {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.18);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--navy-800);
+            opacity: 0.45;
+            letter-spacing: 0.02em;
             white-space: nowrap;
-            letter-spacing: 0.03em;
+        }
+
+        /* HUD watermark */
+        #hud {
+            position: fixed;
+            top: 20px;
+            left: 28px;
+            z-index: 999;
+            color: var(--navy-800);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #hud .title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        #hud .subtitle {
+            font-size: 0.7rem;
+            opacity: 0.5;
+        }
+
+        /* Bird count badge */
+        #bird-count {
+            position: fixed;
+            bottom: 20px;
+            right: 28px;
+            z-index: 999;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--navy-800);
+            opacity: 0.55;
         }
 
         /* Birds */
@@ -117,24 +142,19 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 10px;
             font-weight: 700;
-            color: var(--lime);
-            background: rgba(30, 30, 50, 0.8);
-            backdrop-filter: blur(6px);
-            border: 1.5px solid var(--periwinkle);
+            color: var(--navy-800);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(11, 29, 48, 0.12);
             border-radius: 20px;
-            padding: 4px 14px;
+            padding: 3px 10px;
             white-space: nowrap;
-            letter-spacing: 0.03em;
-        }
-
-        .bird-label .origin {
-            color: var(--periwinkle);
+            letter-spacing: 0.02em;
         }
 
         #sky {
             position: absolute;
             inset: 0;
-            z-index: 50;
         }
     </style>
     <style id="dynamic-keyframes"></style>
@@ -150,6 +170,7 @@
 
     <div id="credits">made with ♥ by the MLH AI Roadshow Team</div>
 
+    <div id="sun"></div>
     <div id="sky"></div>
 
     <script>

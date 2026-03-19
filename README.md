@@ -7,9 +7,10 @@ An interactive art installation for the **MLH AI Roadshow** — draw a bird, sav
 ---
 
 ## How it works
-1. Clone this repository to your laptop.
-2. Run `python3 add_bird.py` in your terminal — it will guide you through the whole process!
-3. Draw your bird in jspaint, save it to `birds/`, and the tool will help you push it to the sky.
+1. Attendees draw a bird in MS Paint
+2. Use [AI Studio](https://aistudio.google.com) + a provided prompt to generate a CSS flight animation
+3. Run `python3 add_bird.py birds/your_bird.png`, paste the JSON, then `git push`
+4. Their bird appears on the projected display within ~30 seconds
 
 ## Workshop Instructions
 See **[INSTRUCTIONS.md](INSTRUCTIONS.md)** for the full step-by-step guide.
