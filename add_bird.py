@@ -175,12 +175,8 @@ Rules:
 
     print("\n\033[94mSTEP 5: Send It Live\033[0m")
     print("-" * 30)
-    print("Since you might be on a public computer, we'll configure a dummy git user just for this commit.")
     
-    os.system('git config user.name "Workshop Guest"')
-    os.system('git config user.email "guest@birdsbirdbirds.local"')
-    
-    print("\nExecuting git commands to push your bird to the repo...")
+    print("Executing git commands to push your bird to the repo...")
     print("> git add .")
     os.system('git add .')
     

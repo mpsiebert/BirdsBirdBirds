@@ -214,5 +214,17 @@
     "image": "birds/mary_bird_yurt.png",
     "origin": "nyc",
     "bird_name": "mary"
+  },
+  {
+    "id": "bird_plum",
+    "animation": {
+      "css_keyframes": "@keyframes fly_plum { 0% { transform: translate(-20vw, 30vh) rotate(5deg); } 15% { transform: translate(10vw, 15vh) rotate(15deg); } 30% { transform: translate(30vw, 45vh) rotate(-10deg); } 50% { transform: translate(50vw, 20vh) rotate(8deg); } 70% { transform: translate(70vw, 50vh) rotate(-12deg); } 85% { transform: translate(90vw, 25vh) rotate(10deg); } 100% { transform: translate(120vw, 35vh) rotate(0deg); } }",
+      "animation_name": "fly_plum",
+      "duration": "16s",
+      "timing_function": "linear"
+    },
+    "image": "birds/mp_bird_plum.png",
+    "origin": "nyc",
+    "bird_name": "mp"
   }
 ]
