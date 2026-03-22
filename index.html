@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birds Birds Birds – MLH AI Roadshow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap" rel="stylesheet">
     <style>
         :root {
             --slide-blue: #9BA9EF;
@@ -22,10 +22,9 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Bagel Fat One', cursive;
             overflow: hidden;
-            /* Split background matching the slide: 30% blue, 70% light gray */
-            background: linear-gradient(to right, var(--slide-blue) 0%, var(--slide-blue) 28%, var(--slide-gray) 28%, var(--slide-gray) 100%);
+            background: var(--slide-blue);
             height: 100vh;
             width: 100vw;
             position: relative;
@@ -48,21 +47,21 @@
         /* HUD watermark styled as massive slide text */
         #hud {
             position: fixed;
-            top: 25%;
-            left: 32%;
+            top: 40px;
+            left: 50px;
             z-index: 0;
             color: var(--slide-text);
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 20px;
             max-width: 60vw;
         }
 
         #hud .title {
-            font-size: 7rem;
-            font-weight: 800;
-            line-height: 0.95;
-            letter-spacing: -2px;
+            font-size: 6.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: 1px;
         }
 
         #hud .subtitle {
@@ -121,9 +120,9 @@
 
         /* Bird name labels */
         .bird-label {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
+            font-family: 'Bagel Fat One', cursive;
+            font-size: 14px;
+            font-weight: 400;
             color: var(--slide-text);
             background: rgba(255, 255, 255, 0.9);
             border: 2px solid var(--slide-text);
@@ -145,7 +144,7 @@
 <body>
 
     <div id="hud">
-        <div class="title">Who's flying to the<br>MLH AI Roadshow?</div>
+        <div class="title">Who's Flying to<br>All Things AI?</div>
     </div>
 
     <div id="bird-count">0 birds flying</div>
