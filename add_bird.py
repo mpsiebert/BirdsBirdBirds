@@ -122,24 +122,42 @@ Rules:
         print("❌ Please keep it family-friendly! Let's try typing that again.")
 
     print("\n📋  Paste the JSON from AI Studio below.")
-    print("    (Paste it, then press Enter twice to continue)\n")
+    print("    (The script will automatically continue once it receives valid JSON)\n")
 
     lines = []
+    raw = ""
     try:
         while True:
             line = input()
-            if line == "" and lines and lines[-1] == "":
-                break
             lines.append(line)
+            
+            raw_text = "\n".join(lines).strip()
+            
+            # Clean up markdown fences for testing
+            if raw_text.startswith("```"):
+                parts = raw_text.split("```")
+                if len(parts) >= 2:
+                    raw_text = parts[1]
+                if raw_text.startswith("json"):
+                    raw_text = raw_text[4:]
+                raw_text = raw_text.strip()
+                
+            # If it looks like a complete object, try parsing
+            if raw_text.startswith("{") and raw_text.endswith("}"):
+                try:
+                    json.loads(raw_text)
+                    # Valid JSON detected, we can break automatically!
+                    raw = raw_text
+                    break
+                except json.JSONDecodeError:
+                    pass
+                    
+            # Fallback: break on 3 consecutive empty lines if they get stuck
+            if len(lines) >= 3 and lines[-1] == "" and lines[-2] == "" and lines[-3] == "":
+                raw = raw_text
+                break
     except EOFError:
         pass
-
-    raw = "\n".join(lines).strip()
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
 
     try:
         entry = json.loads(raw)
