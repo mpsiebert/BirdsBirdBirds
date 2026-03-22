@@ -17,9 +17,20 @@ import sys
 import os
 import json
 import shutil
+import urllib.request
+import urllib.parse
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def is_clean(text):
+    if not text: return True
+    try:
+        url = "https://www.purgomalum.com/service/containsprofanity?text=" + urllib.parse.quote(text)
+        with urllib.request.urlopen(url, timeout=3) as resp:
+            return resp.read().decode('utf-8').strip() == 'false'
+    except:
+        return True # Fallback if API is down
 
 def print_header():
     print("\033[95m" + "=" * 50)
@@ -75,6 +86,7 @@ Respond ONLY with a single valid JSON object in this exact format, with no extra
 
 Rules:
 - Replace all instances of "XXXX" with a unique 4-letter word.
+- SAFETY POLICY: If the uploaded drawing contains offensive, inappropriate, or NSFW content, you must output EXACTLY: {"error": "inappropriate"} and nothing else.
 - The animation must start at transform: translate(-20vw, ...) and end at translate(120vw, ...).
 - Choose a flight character (swooping, fluttering, gliding) that fits the bird.
 - Return ONLY the JSON. No markdown, no explanation.\033[0m"""
@@ -101,8 +113,13 @@ Rules:
             break
         print(f"❌ Could not find file: {img_path}. Please check the path and try again.")
 
-    bird_name = input("\n✏️   What's your name? ").strip() or "Anonymous"
-    origin = input("📍  Where are you flying in from? (e.g. Boston, MA): ").strip() or "Parts Unknown"
+    while True:
+        bird_name = input("\n✏️   What's your name? ").strip() or "Anonymous"
+        origin = input("📍  Where are you flying in from? (e.g. Boston, MA): ").strip() or "Parts Unknown"
+        print("Checking text for inappropriate content...")
+        if is_clean(bird_name) and is_clean(origin):
+            break
+        print("❌ Please keep it family-friendly! Let's try typing that again.")
 
     print("\n📋  Paste the JSON from AI Studio below.")
     print("    (Paste it, then press Enter twice to continue)\n")
@@ -126,6 +143,10 @@ Rules:
 
     try:
         entry = json.loads(raw)
+        if "error" in entry:
+            print("\n❌ AI Safety Filter: Your bird drawing was flagged as inappropriate.")
+            print("    Please redraw a family-friendly bird and try again!")
+            sys.exit(1)
     except json.JSONDecodeError as e:
         print(f"\n❌  That doesn't look like valid JSON: {e}")
         print("    Please run the script again and make sure you copied the full block from AI Studio.")
