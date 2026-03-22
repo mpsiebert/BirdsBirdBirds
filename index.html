@@ -104,7 +104,7 @@
             max-width: 240px;
             max-height: 240px;
             display: block;
-            animation: flap 0.4s ease-in-out infinite alternate;
+            animation: flap 1.2s ease-in-out infinite alternate; /* Slower flap for less chaos */
             filter: contrast(1.1); /* Removed drop-shadows */
         }
 
@@ -202,7 +202,11 @@
             wrapper.style.top = (Math.random() * 65 + 8) + 'vh';
             wrapper.style.zIndex = Math.floor(Math.random() * 50) + 51;
 
-            const dur = bird.animation.duration || '18s';
+            // Multiply the AI-generated duration by 3 so the birds float gently
+            let baseDur = parseFloat(bird.animation.duration || '18');
+            if (isNaN(baseDur)) baseDur = 18;
+            const dur = (baseDur * 3) + 's'; 
+            
             const timing = bird.animation.timing_function || 'ease-in-out';
             wrapper.style.animation = bird.animation.animation_name + ' ' + dur + ' ' + timing + ' infinite';
 
