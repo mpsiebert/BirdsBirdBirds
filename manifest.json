@@ -226,5 +226,17 @@
     "image": "birds/mp_bird_plum.png",
     "origin": "nyc",
     "bird_name": "mp"
+  },
+  {
+    "id": "bird_test",
+    "animation": {
+      "css_keyframes": "@keyframes fly_test { 0% { transform: translate(-20vw, 40vh); } 100% { transform: translate(120vw, 35vh); } }",
+      "animation_name": "fly_test",
+      "duration": "18s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/testuser_bird_test.png",
+    "origin": "Test City",
+    "bird_name": "Test User"
   }
 ]
