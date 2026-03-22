@@ -202,5 +202,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_yurt",
+    "animation": {
+      "css_keyframes": "@keyframes fly_yurt { 0% { transform: translate(-20vw, 30vh) rotate(-10deg); } 25% { transform: translate(15vw, 60vh) rotate(5deg); } 50% { transform: translate(50vw, 20vh) rotate(-5deg); } 75% { transform: translate(85vw, 55vh) rotate(8deg); } 100% { transform: translate(120vw, 15vh) rotate(0deg); } }",
+      "animation_name": "fly_yurt",
+      "duration": "12s",
+      "timing_function": "linear"
+    },
+    "image": "birds/mary_bird_yurt.png",
+    "origin": "nyc",
+    "bird_name": "mary"
   }
 ]
