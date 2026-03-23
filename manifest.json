@@ -202,5 +202,17 @@
     "image": "birds/matt_bird_perch.png",
     "origin": "Raleigh, NC",
     "bird_name": "Matt"
+  },
+  {
+    "id": "bird_blue",
+    "animation": {
+      "css_keyframes": "@keyframes fly_blue { 0% { transform: translate(-20vw, 55vh) rotate(5deg); } 20% { transform: translate(15vw, 30vh) rotate(-10deg); } 40% { transform: translate(50vw, 70vh) rotate(8deg); } 60% { transform: translate(85vw, 40vh) rotate(-5deg); } 80% { transform: translate(105vw, 60vh) rotate(12deg); } 100% { transform: translate(120vw, 45vh) rotate(-3deg); } }",
+      "animation_name": "fly_blue",
+      "duration": "22s",
+      "timing_function": "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
+    },
+    "image": "birds/marcussostak_bird_blue.png",
+    "origin": "Columbia, SC",
+    "bird_name": "Marcus Sostak"
   }
 ]
