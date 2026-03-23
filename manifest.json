@@ -214,5 +214,17 @@
     "image": "birds/marcussostak_bird_blue.png",
     "origin": "Columbia, SC",
     "bird_name": "Marcus Sostak"
+  },
+  {
+    "id": "bird_XXXX",
+    "animation": {
+      "css_keyframes": "@keyframes fly_XXXX { 0% { transform: translate(-20vw, 40vh) rotate(-5deg); } 50% { transform: translate(50vw, 20vh) rotate(3deg); } 100% { transform: translate(120vw, 35vh) rotate(-3deg); } }",
+      "animation_name": "fly_XXXX",
+      "duration": "18s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/lily_bird_XXXX.jpg",
+    "origin": "University of South Carolina",
+    "bird_name": "Lily"
   }
 ]
