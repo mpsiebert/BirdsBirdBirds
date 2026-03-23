@@ -166,5 +166,17 @@
     "image": "birds/abdul_bird_flit.png",
     "origin": "North Carolina",
     "bird_name": "Abdul"
+  },
+  {
+    "id": "bird_28b67d98",
+    "image": "birds/mariah_bird_flit.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_28b67d98 { 0% { transform: translate(-20vw, 66vh); } 100% { transform: translate(120vw, 47vh); } }",
+      "animation_name": "fly_bird_28b67d98",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
