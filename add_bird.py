@@ -19,6 +19,7 @@ import json
 import shutil
 import urllib.request
 import urllib.parse
+import subprocess  # <-- Added subprocess for cross-platform commands
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -126,7 +127,7 @@ Rules:
     print("\n📋  Paste the JSON from AI Studio below.")
     print("    (The script will automatically continue once it receives valid JSON)\n")
 
-    lines = []
+    lines =[]
     raw = ""
     try:
         while True:
@@ -190,7 +191,7 @@ Rules:
             img = Image.open(img_path).convert("RGBA")
             datas = img.getdata()
             
-            newData = []
+            newData =[]
             for item in datas:
                 # If the pixel is very close to white, make it completely transparent
                 if item[0] > 235 and item[1] > 235 and item[2] > 235:
@@ -231,11 +232,15 @@ Rules:
         print(f"> git pull --rebase (Attempt {attempt+1}/{max_retries})")
         
         # If manifest.json was modified on a previous failed loop, reset it so we can pull cleanly
-        os.system(f'git checkout -- {manifest_path} > /dev/null 2>&1')
+        subprocess.run(
+            ['git', 'checkout', '--', manifest_path], 
+            stdout=subprocess.DEVNULL, 
+            stderr=subprocess.DEVNULL
+        )
         
         # Print the pull command output so we can see network or auth errors
         print("> git pull origin main --rebase")
-        pull_result = os.system('git pull origin main --rebase')
+        pull_result = subprocess.run(['git', 'pull', 'origin', 'main', '--rebase']).returncode
         if pull_result != 0:
             print("\033[93m⚠️ Warning: Pull failed. Trying to proceed anyway...\033[0m")
         
@@ -246,10 +251,10 @@ Rules:
                 try:
                     manifest = json.load(f)
                 except json.JSONDecodeError:
-                    manifest = []
+                    manifest =[]
         
         # Remove existing bird with same id
-        manifest = [existing for existing in manifest if existing.get("id") != entry.get("id")]
+        manifest =[existing for existing in manifest if existing.get("id") != entry.get("id")]
         manifest.append(entry)
 
         with open(manifest_path, "w") as f:
@@ -258,14 +263,20 @@ Rules:
         print("✅  Successfully updated manifest.json!")
         
         print("> git add .")
-        os.system('git add .')
+        subprocess.run(['git', 'add', '.'])
         
         commit_msg = f"Add {bird_name}'s bird 🐦"
         print(f'> git commit -m "{commit_msg}"')
-        os.system(f'git commit -m "{commit_msg}" > /dev/null 2>&1')
+        
+        # Committing using subprocess natively handles spaces in the commit_msg, so we drop the outer quotes here.
+        subprocess.run(
+            ['git', 'commit', '-m', commit_msg], 
+            stdout=subprocess.DEVNULL, 
+            stderr=subprocess.DEVNULL
+        )
         
         print("> git push")
-        push_result = os.system('git push')
+        push_result = subprocess.run(['git', 'push']).returncode
         
         if push_result == 0:
             print("\n\033[92m✨ SUCCESS! ✨\033[0m")
@@ -276,7 +287,11 @@ Rules:
             print("\n\033[93m⚠️ Push failed (someone else pushed an update, or authentication failed).\033[0m")
             print("Undoing commit and retrying...")
             # Use a mixed reset (not --hard) so we don't accidentally delete the bird image file!
-            os.system('git reset HEAD~1 > /dev/null 2>&1')
+            subprocess.run(
+                ['git', 'reset', 'HEAD~1'], 
+                stdout=subprocess.DEVNULL, 
+                stderr=subprocess.DEVNULL
+            )
             time.sleep(random.uniform(1, 3))
     else:
         print("\n\033[91m⚠️ Hmm, the push failed after multiple retries.\033[0m")
@@ -284,12 +299,4 @@ Rules:
 
 if __name__ == "__main__":
     if not os.path.exists(".git"):
-         print("\033[91mError: You are not inside a Git repository.\033[0m")
-         print("Please run this script from inside your cloned 'BirdsBirdBirds' folder.")
-         sys.exit(1)
-         
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\n\nExiting... Bye! 🐦")
-        sys.exit()
+         print("\033[91mError: You are not inside a Git repository.\033
