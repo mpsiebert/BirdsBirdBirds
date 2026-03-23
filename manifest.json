@@ -34,5 +34,17 @@
     "image": "birds/ryan_bird_milo.jpg",
     "origin": "JC",
     "bird_name": "Ryan"
+  },
+  {
+    "id": "bird_RUBY",
+    "animation": {
+      "css_keyframes": "@keyframes fly_RUBY { 0% { transform: translate(-20vw, 60vh) rotate(-10deg); } 20% { transform: translate(10vw, 30vh) rotate(15deg); } 45% { transform: translate(45vw, 75vh) rotate(-20deg); } 75% { transform: translate(85vw, 40vh) rotate(10deg); } 100% { transform: translate(120vw, 50vh) rotate(-5deg); } }",
+      "animation_name": "fly_RUBY",
+      "duration": "14s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/swift_bird_RUBY.jpg",
+    "origin": "New York, NY",
+    "bird_name": "Swift"
   }
 ]
