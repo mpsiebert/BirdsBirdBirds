@@ -285,4 +285,12 @@ Rules:
 
 if __name__ == "__main__":
     if not os.path.exists(".git"):
-         print("\033[91mError: You are not inside a Git repository.\033
+         print("\033[91mError: You are not inside a Git repository.\033[0m")
+         print("Please run this script from inside your cloned 'BirdsBirdBirds' folder.")
+         sys.exit(1)
+
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\nExiting... Bye! 🐦")
+        sys.exit()
