@@ -118,5 +118,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_HARK",
+    "animation": {
+      "css_keyframes": "@keyframes fly_HARK { 0% { transform: translate(-20vw, 45vh) rotate(5deg); } 25% { transform: translate(10vw, 85vh) rotate(-10deg); } 45% { transform: translate(45vw, 20vh) rotate(20deg); } 70% { transform: translate(85vw, 70vh) rotate(-15deg); } 85% { transform: translate(105vw, 15vh) rotate(10deg); } 100% { transform: translate(120vw, 30vh) rotate(0deg); } }",
+      "animation_name": "fly_HARK",
+      "duration": "21s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/jessebikman_bird_HARK.png",
+    "origin": "Durham, NC",
+    "bird_name": "Jesse Bikman"
   }
 ]
