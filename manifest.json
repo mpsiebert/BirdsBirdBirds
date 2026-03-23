@@ -154,5 +154,17 @@
     "image": "birds/mariah_bird_flit.png",
     "origin": "NJ",
     "bird_name": "Mariah"
+  },
+  {
+    "id": "bird_zoom",
+    "animation": {
+      "css_keyframes": "@keyframes fly_zoom { 0% { transform: translate(-20vw, 30vh) rotate(-10deg); } 20% { transform: translate(10vw, 20vh) rotate(-20deg); } 40% { transform: translate(40vw, 80vh) rotate(20deg); } 70% { transform: translate(80vw, 15vh) rotate(-15deg); } 100% { transform: translate(120vw, 50vh) rotate(5deg); } }",
+      "animation_name": "fly_zoom",
+      "duration": "14s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/mariah_bird_zoom.jpg",
+    "origin": "NJ",
+    "bird_name": "Mariah"
   }
 ]
