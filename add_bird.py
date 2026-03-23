@@ -58,10 +58,10 @@ def main():
     print("1. Go to Google AI Studio (\033[96mhttps://aistudio.google.com\033[0m)")
     print("2. Upload the bird you just downloaded.")
     print("3. Use this prompt to clean it up:\n")
-    print("\033[93m\"Please remove the background of this image, making it completely transparent.")
-    print("Clean up the edges of the bird but keep the original hand-drawn style exactly as it is.")
-    print("Output ONLY the clean transparent image.\"\033[0m\n")
-    print("4. Download the cleaned-up transparent bird to this computer.")
+    print("\033[93m\"Please clean up the lines of this bird drawing, keeping the original hand-drawn style exactly as it is.")
+    print("OUTPUT THE IMAGE ON A SOLID PURE WHITE BACKGROUND.")
+    print("DO NOT attempt to make the background transparent, and DO NOT add a fake checkered background!\"\033[0m\n")
+    print("4. Download the cleaned-up bird to this computer.")
     pause()
 
     print("\033[94mSTEP 3: Animate Your Bird\033[0m")
@@ -185,10 +185,29 @@ Rules:
     dest_path = os.path.join("birds", dest_img_name)
     
     try:
-        shutil.copy(img_path, dest_path)
-        print(f"\n✅ Copied image to {dest_path}")
+        try:
+            from PIL import Image
+            img = Image.open(img_path).convert("RGBA")
+            datas = img.getdata()
+            
+            newData = []
+            for item in datas:
+                # If the pixel is very close to white, make it completely transparent
+                if item[0] > 235 and item[1] > 235 and item[2] > 235:
+                    newData.append((255, 255, 255, 0))
+                else:
+                    newData.append(item)
+                    
+            img.putdata(newData)
+            img.save(dest_path, "PNG")
+            print(f"\n✅ Processed image (removed background) and saved to {dest_path}")
+        except ImportError:
+            print("\n\033[93m⚠️  Python 'Pillow' library not installed! (Install via: pip install Pillow)\033[0m")
+            print("   Falling back to standard copy (no automatic background removal).")
+            shutil.copy(img_path, dest_path)
+            print(f"✅ Copied raw image to {dest_path}")
     except Exception as e:
-        print(f"❌ Failed to copy image: {e}")
+        print(f"❌ Failed to save image: {e}")
         sys.exit(1)
 
     # Update entry with image path directly in birds/ folder (web safe)
