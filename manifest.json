@@ -142,5 +142,17 @@
     "image": "birds/floopybird_bird_dive.jpg",
     "origin": "Nest",
     "bird_name": "Floopy Bird"
+  },
+  {
+    "id": "bird_flit",
+    "animation": {
+      "css_keyframes": "@keyframes fly_flit { 0% { transform: translate(-20vw, 85vh) rotate(10deg); } 25% { transform: translate(20vw, 50vh) rotate(-5deg); } 50% { transform: translate(50vw, 75vh) rotate(5deg); } 75% { transform: translate(80vw, 40vh) rotate(-10deg); } 100% { transform: translate(120vw, 65vh) rotate(0deg); } }",
+      "animation_name": "fly_flit",
+      "duration": "9s",
+      "timing_function": "linear"
+    },
+    "image": "birds/mariah_bird_flit.png",
+    "origin": "NJ",
+    "bird_name": "Mariah"
   }
 ]
