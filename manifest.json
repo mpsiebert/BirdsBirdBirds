@@ -250,5 +250,17 @@
     "image": "birds/kevin_bird_hawk.png",
     "origin": "SC",
     "bird_name": "Kevin"
+  },
+  {
+    "id": "bird_soar",
+    "animation": {
+      "css_keyframes": "@keyframes fly_soar { 0% { transform: translate(-20vw, 55vh) rotate(-10deg); } 20% { transform: translate(15vw, 40vh) rotate(5deg); } 45% { transform: translate(50vw, 60vh) rotate(-8deg); } 70% { transform: translate(85vw, 45vh) rotate(2deg); } 100% { transform: translate(120vw, 50vh) rotate(-5deg); } }",
+      "animation_name": "fly_soar",
+      "duration": "22s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/alberto_bird_soar.png",
+    "origin": "Chapel Hill, NC",
+    "bird_name": "Alberto"
   }
 ]
