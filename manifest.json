@@ -70,5 +70,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_RUBY",
+    "animation": {
+      "css_keyframes": "@keyframes fly_RUBY { 0% { transform: translate(-20vw, 65vh) rotate(-10deg); } 25% { transform: translate(15vw, 35vh) rotate(-25deg); } 50% { transform: translate(50vw, 75vh) rotate(15deg); } 75% { transform: translate(85vw, 25vh) rotate(-20deg); } 100% { transform: translate(120vw, 55vh) rotate(5deg); } }",
+      "animation_name": "fly_RUBY",
+      "duration": "14s",
+      "timing_function": "linear"
+    },
+    "image": "birds/ryan_bird_RUBY.jpg",
+    "origin": "Jersey City, NJ",
+    "bird_name": "Ryan"
   }
 ]
