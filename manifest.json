@@ -286,5 +286,17 @@
     "image": "birds/john_bird_WING.jpg",
     "origin": "Boston MA",
     "bird_name": "John"
+  },
+  {
+    "id": "bird_pico",
+    "animation": {
+      "css_keyframes": "@keyframes fly_pico { 0% { transform: translate(-20vw, 65vh) rotate(5deg); } 20% { transform: translate(15vw, 15vh) rotate(-15deg); } 50% { transform: translate(55vw, 85vh) rotate(10deg); } 80% { transform: translate(90vw, 25vh) rotate(-10deg); } 100% { transform: translate(120vw, 50vh) rotate(5deg); } }",
+      "animation_name": "fly_pico",
+      "duration": "22s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/p_bird_pico.png",
+    "origin": "C",
+    "bird_name": "P"
   }
 ]
