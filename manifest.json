@@ -82,5 +82,17 @@
     "image": "birds/jane_bird_RUBY.jpg",
     "origin": "Puerto Rico",
     "bird_name": "Jane"
+  },
+  {
+    "id": "bird_20d432c9",
+    "image": "birds/ryan_bird_RUBY.jpg",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_20d432c9 { 0% { transform: translate(-20vw, 57vh); } 100% { transform: translate(120vw, 67vh); } }",
+      "animation_name": "fly_bird_20d432c9",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
