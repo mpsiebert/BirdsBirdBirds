@@ -10,5 +10,65 @@
     "image": "birds/jrbobdobbs_bird_FLAP.jpg",
     "origin": "The High Himalaya",
     "bird_name": "J.R. \"Bob\" Dobbs"
+  },
+  {
+    "id": "bird_da0279f1",
+    "image": "birds/baker_bird_soar.jpg",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_da0279f1 { 0% { transform: translate(-20vw, 30vh); } 100% { transform: translate(120vw, 47vh); } }",
+      "animation_name": "fly_bird_da0279f1",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_984c91c4",
+    "image": "birds/mp_bird_plum.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_984c91c4 { 0% { transform: translate(-20vw, 54vh); } 100% { transform: translate(120vw, 39vh); } }",
+      "animation_name": "fly_bird_984c91c4",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_ecae4e0b",
+    "image": "birds/swift_bird_RUBY.jpg",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_ecae4e0b { 0% { transform: translate(-20vw, 39vh); } 100% { transform: translate(120vw, 37vh); } }",
+      "animation_name": "fly_bird_ecae4e0b",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_51863a5b",
+    "image": "birds/mp_bird_yawn.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_51863a5b { 0% { transform: translate(-20vw, 31vh); } 100% { transform: translate(120vw, 12vh); } }",
+      "animation_name": "fly_bird_51863a5b",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_9199a6ae",
+    "image": "birds/andrew_bird_LARK.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_9199a6ae { 0% { transform: translate(-20vw, 48vh); } 100% { transform: translate(120vw, 49vh); } }",
+      "animation_name": "fly_bird_9199a6ae",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
