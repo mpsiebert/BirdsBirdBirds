@@ -238,5 +238,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_hawk",
+    "animation": {
+      "css_keyframes": "@keyframes fly_hawk { 0% { transform: translate(-20vw, 60vh) rotate(-10deg); } 25% { transform: translate(15vw, 45vh) rotate(5deg); } 50% { transform: translate(60vw, 70vh) rotate(-8deg); } 75% { transform: translate(90vw, 30vh) rotate(12deg); } 100% { transform: translate(120vw, 55vh) rotate(-5deg); } }",
+      "animation_name": "fly_hawk",
+      "duration": "22s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/kevin_bird_hawk.png",
+    "origin": "SC",
+    "bird_name": "Kevin"
   }
 ]
