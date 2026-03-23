@@ -213,7 +213,12 @@ Rules:
         
         # If manifest.json was modified on a previous failed loop, reset it so we can pull cleanly
         os.system(f'git checkout -- {manifest_path} > /dev/null 2>&1')
-        os.system('git pull --rebase > /dev/null 2>&1')
+        
+        # Print the pull command output so we can see network or auth errors
+        print("> git pull origin main --rebase")
+        pull_result = os.system('git pull origin main --rebase')
+        if pull_result != 0:
+            print("\033[93m⚠️ Warning: Pull failed. Trying to proceed anyway...\033[0m")
         
         # Now read the fresh manifest
         manifest = []
@@ -234,14 +239,14 @@ Rules:
         print("✅  Successfully updated manifest.json!")
         
         print("> git add .")
-        os.system('git add . > /dev/null 2>&1')
+        os.system('git add .')
         
         commit_msg = f"Add {bird_name}'s bird 🐦"
         print(f'> git commit -m "{commit_msg}"')
         os.system(f'git commit -m "{commit_msg}" > /dev/null 2>&1')
         
         print("> git push")
-        push_result = os.system('git push > /dev/null 2>&1')
+        push_result = os.system('git push')
         
         if push_result == 0:
             print("\n\033[92m✨ SUCCESS! ✨\033[0m")
@@ -249,10 +254,10 @@ Rules:
             print("Watch the sky at: https://mpsiebert.github.io/BirdsBirdBirds/")
             break
         else:
-            print("\n\033[93m⚠️ Push failed (likely someone else pushed an update at the exact same time).\033[0m")
+            print("\n\033[93m⚠️ Push failed (someone else pushed an update, or authentication failed).\033[0m")
             print("Undoing commit and retrying...")
-            # Undo our commit so we can pull purely next loop
-            os.system('git reset --hard HEAD~1 > /dev/null 2>&1')
+            # Use a mixed reset (not --hard) so we don't accidentally delete the bird image file!
+            os.system('git reset HEAD~1 > /dev/null 2>&1')
             time.sleep(random.uniform(1, 3))
     else:
         print("\n\033[91m⚠️ Hmm, the push failed after multiple retries.\033[0m")
