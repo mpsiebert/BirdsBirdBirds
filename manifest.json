@@ -144,18 +144,6 @@
     "bird_name": "Floopy Bird"
   },
   {
-    "id": "bird_flit",
-    "animation": {
-      "css_keyframes": "@keyframes fly_flit { 0% { transform: translate(-20vw, 85vh) rotate(10deg); } 25% { transform: translate(20vw, 50vh) rotate(-5deg); } 50% { transform: translate(50vw, 75vh) rotate(5deg); } 75% { transform: translate(80vw, 40vh) rotate(-10deg); } 100% { transform: translate(120vw, 65vh) rotate(0deg); } }",
-      "animation_name": "fly_flit",
-      "duration": "9s",
-      "timing_function": "linear"
-    },
-    "image": "birds/mariah_bird_flit.png",
-    "origin": "NJ",
-    "bird_name": "Mariah"
-  },
-  {
     "id": "bird_zoom",
     "animation": {
       "css_keyframes": "@keyframes fly_zoom { 0% { transform: translate(-20vw, 30vh) rotate(-10deg); } 20% { transform: translate(10vw, 20vh) rotate(-20deg); } 40% { transform: translate(40vw, 80vh) rotate(20deg); } 70% { transform: translate(80vw, 15vh) rotate(-15deg); } 100% { transform: translate(120vw, 50vh) rotate(5deg); } }",
@@ -166,5 +154,17 @@
     "image": "birds/mariah_bird_zoom.jpg",
     "origin": "NJ",
     "bird_name": "Mariah"
+  },
+  {
+    "id": "bird_flit",
+    "animation": {
+      "css_keyframes": "@keyframes fly_flit { 0% { transform: translate(-20vw, 55vh) rotate(-10deg); } 25% { transform: translate(15vw, 40vh) rotate(5deg); } 50% { transform: translate(50vw, 65vh) rotate(-8deg); } 75% { transform: translate(85vw, 30vh) rotate(2deg); } 100% { transform: translate(120vw, 45vh) rotate(-5deg); } }",
+      "animation_name": "fly_flit",
+      "duration": "22s",
+      "timing_function": "cubic-bezier(0.42, 0, 0.58, 1)"
+    },
+    "image": "birds/abdul_bird_flit.png",
+    "origin": "North Carolina",
+    "bird_name": "Abdul"
   }
 ]
