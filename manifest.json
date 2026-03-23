@@ -94,5 +94,29 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_74fe2556",
+    "image": "birds/scary bird.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_74fe2556 { 0% { transform: translate(-20vw, 42vh); } 100% { transform: translate(120vw, 31vh); } }",
+      "animation_name": "fly_bird_74fe2556",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
+  },
+  {
+    "id": "bird_d7efc9c3",
+    "image": "birds/Generated Image March 23, 2026 - 10_29AM.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_d7efc9c3 { 0% { transform: translate(-20vw, 51vh); } 100% { transform: translate(120vw, 24vh); } }",
+      "animation_name": "fly_bird_d7efc9c3",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
