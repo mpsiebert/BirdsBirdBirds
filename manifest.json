@@ -130,5 +130,17 @@
     "image": "birds/jessebikman_bird_HARK.png",
     "origin": "Durham, NC",
     "bird_name": "Jesse Bikman"
+  },
+  {
+    "id": "bird_dive",
+    "animation": {
+      "css_keyframes": "@keyframes fly_dive { 0% { transform: translate(-20vw, 75vh) rotate(-10deg); } 15% { transform: translate(10vw, 60vh) rotate(-25deg); } 35% { transform: translate(35vw, 15vh) rotate(-40deg); } 60% { transform: translate(65vw, 45vh) rotate(15deg); } 80% { transform: translate(90vw, 30vh) rotate(-10deg); } 100% { transform: translate(120vw, 55vh) rotate(5deg); } }",
+      "animation_name": "fly_dive",
+      "duration": "21s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/floopybird_bird_dive.jpg",
+    "origin": "Nest",
+    "bird_name": "Floopy Bird"
   }
 ]
