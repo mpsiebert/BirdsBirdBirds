@@ -26,4 +26,3 @@ BirdsBirdBirds/
 ```
 
 *made with ♥ by the MLH AI Roadshow Team*
-Hello again from All Things AI
