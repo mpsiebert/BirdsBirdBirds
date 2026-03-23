@@ -178,5 +178,17 @@
       "duration": "20s",
       "timing_function": "linear"
     }
+  },
+  {
+    "id": "bird_FLIT",
+    "animation": {
+      "css_keyframes": "@keyframes fly_FLIT { 0% { transform: translate(-20vw, 55vh) rotate(-12deg); } 15% { transform: translate(5vw, 30vh) rotate(8deg); } 35% { transform: translate(30vw, 70vh) rotate(-15deg); } 55% { transform: translate(55vw, 40vh) rotate(10deg); } 75% { transform: translate(85vw, 60vh) rotate(-8deg); } 90% { transform: translate(105vw, 45vh) rotate(5deg); } 100% { transform: translate(120vw, 50vh) rotate(-3deg); } }",
+      "animation_name": "fly_FLIT",
+      "duration": "24s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/bea_bird_FLIT.jpg",
+    "origin": "Raleigh, NC",
+    "bird_name": "Bea"
   }
 ]
