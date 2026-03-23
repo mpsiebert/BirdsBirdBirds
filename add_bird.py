@@ -232,8 +232,7 @@ Rules:
         print(f"> git pull --rebase (Attempt {attempt+1}/{max_retries})")
         
         # If manifest.json was modified on a previous failed loop, reset it so we can pull cleanly
-        subprocess.run(
-            ['git', 'checkout', '--', manifest_path], 
+        subprocess.run(['git', 'checkout', '--', manifest_path], 
             stdout=subprocess.DEVNULL, 
             stderr=subprocess.DEVNULL
         )
@@ -251,7 +250,7 @@ Rules:
                 try:
                     manifest = json.load(f)
                 except json.JSONDecodeError:
-                    manifest =[]
+                    manifest = []
         
         # Remove existing bird with same id
         manifest =[existing for existing in manifest if existing.get("id") != entry.get("id")]
@@ -269,8 +268,7 @@ Rules:
         print(f'> git commit -m "{commit_msg}"')
         
         # Committing using subprocess natively handles spaces in the commit_msg, so we drop the outer quotes here.
-        subprocess.run(
-            ['git', 'commit', '-m', commit_msg], 
+        subprocess.run(['git', 'commit', '-m', commit_msg], 
             stdout=subprocess.DEVNULL, 
             stderr=subprocess.DEVNULL
         )
@@ -287,8 +285,7 @@ Rules:
             print("\n\033[93m⚠️ Push failed (someone else pushed an update, or authentication failed).\033[0m")
             print("Undoing commit and retrying...")
             # Use a mixed reset (not --hard) so we don't accidentally delete the bird image file!
-            subprocess.run(
-                ['git', 'reset', 'HEAD~1'], 
+            subprocess.run(['git', 'reset', 'HEAD~1'], 
                 stdout=subprocess.DEVNULL, 
                 stderr=subprocess.DEVNULL
             )
