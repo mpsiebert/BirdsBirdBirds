@@ -10,5 +10,17 @@
     "image": "birds/mp_bird_plum.png",
     "origin": "nyc",
     "bird_name": "mp"
+  },
+  {
+    "id": "bird_yawn",
+    "animation": {
+      "css_keyframes": "@keyframes fly_yawn { 0% { transform: translate(-20vw, 30vh) rotate(-15deg); } 20% { transform: translate(10vw, 15vh) rotate(5deg); } 40% { transform: translate(40vw, 40vh) rotate(-20deg); } 60% { transform: translate(65vw, 10vh) rotate(10deg); } 80% { transform: translate(90vw, 35vh) rotate(-10deg); } 100% { transform: translate(120vw, 20vh) rotate(5deg); } }",
+      "animation_name": "fly_yawn",
+      "duration": "14s",
+      "timing_function": "linear"
+    },
+    "image": "birds/mp_bird_yawn.png",
+    "origin": "new yooork",
+    "bird_name": "mp"
   }
 ]
