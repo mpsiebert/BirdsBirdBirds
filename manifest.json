@@ -190,5 +190,17 @@
     "image": "birds/bea_bird_FLIT.jpg",
     "origin": "Raleigh, NC",
     "bird_name": "Bea"
+  },
+  {
+    "id": "bird_perch",
+    "animation": {
+      "css_keyframes": "@keyframes fly_perch { 0% { transform: translate(-20vw, 55vh) rotate(-10deg); } 15% { transform: translate(10vw, 70vh) rotate(-5deg); } 40% { transform: translate(45vw, 30vh) rotate(8deg); } 70% { transform: translate(80vw, 60vh) rotate(-2deg); } 100% { transform: translate(120vw, 45vh) rotate(5deg); } }",
+      "animation_name": "fly_perch",
+      "duration": "20s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/matt_bird_perch.png",
+    "origin": "Raleigh, NC",
+    "bird_name": "Matt"
   }
 ]
