@@ -262,5 +262,17 @@
     "image": "birds/alberto_bird_soar.png",
     "origin": "Chapel Hill, NC",
     "bird_name": "Alberto"
+  },
+  {
+    "id": "bird_chirp",
+    "animation": {
+      "css_keyframes": "@keyframes fly_chirp { 0% { transform: translate(-20vw, 30vh) rotate(5deg); } 25% { transform: translate(15vw, 70vh) rotate(-10deg); } 50% { transform: translate(50vw, 20vh) rotate(15deg); } 75% { transform: translate(85vw, 65vh) rotate(-5deg); } 100% { transform: translate(120vw, 45vh) rotate(0deg); } }",
+      "animation_name": "fly_chirp",
+      "duration": "14s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/mar_bird_chirp.png",
+    "origin": "kansas",
+    "bird_name": "mar"
   }
 ]
