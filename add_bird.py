@@ -17,9 +17,9 @@ import sys
 import os
 import json
 import shutil
+import subprocess
 import urllib.request
 import urllib.parse
-import subprocess  # <-- Added subprocess for cross-platform commands
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -232,10 +232,7 @@ Rules:
         print(f"> git pull --rebase (Attempt {attempt+1}/{max_retries})")
         
         # If manifest.json was modified on a previous failed loop, reset it so we can pull cleanly
-        subprocess.run(['git', 'checkout', '--', manifest_path], 
-            stdout=subprocess.DEVNULL, 
-            stderr=subprocess.DEVNULL
-        )
+        subprocess.run(['git', 'checkout', '--', manifest_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         
         # Print the pull command output so we can see network or auth errors
         print("> git pull origin main --rebase")
@@ -263,16 +260,11 @@ Rules:
         
         print("> git add .")
         subprocess.run(['git', 'add', '.'])
-        
+
         commit_msg = f"Add {bird_name}'s bird 🐦"
         print(f'> git commit -m "{commit_msg}"')
-        
-        # Committing using subprocess natively handles spaces in the commit_msg, so we drop the outer quotes here.
-        subprocess.run(['git', 'commit', '-m', commit_msg], 
-            stdout=subprocess.DEVNULL, 
-            stderr=subprocess.DEVNULL
-        )
-        
+        subprocess.run(['git', 'commit', '-m', commit_msg], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
         print("> git push")
         push_result = subprocess.run(['git', 'push']).returncode
         
@@ -285,10 +277,7 @@ Rules:
             print("\n\033[93m⚠️ Push failed (someone else pushed an update, or authentication failed).\033[0m")
             print("Undoing commit and retrying...")
             # Use a mixed reset (not --hard) so we don't accidentally delete the bird image file!
-            subprocess.run(['git', 'reset', 'HEAD~1'], 
-                stdout=subprocess.DEVNULL, 
-                stderr=subprocess.DEVNULL
-            )
+            subprocess.run(['git', 'reset', 'HEAD~1'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             time.sleep(random.uniform(1, 3))
     else:
         print("\n\033[91m⚠️ Hmm, the push failed after multiple retries.\033[0m")
