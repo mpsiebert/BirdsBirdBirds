@@ -274,5 +274,17 @@
     "image": "birds/mar_bird_chirp.png",
     "origin": "kansas",
     "bird_name": "mar"
+  },
+  {
+    "id": "bird_WING",
+    "animation": {
+      "css_keyframes": "@keyframes fly_WING { 0% { transform: translate(-20vw, 15vh) rotate(2deg); } 20% { transform: translate(10vw, 55vh) rotate(-8deg); } 50% { transform: translate(50vw, 20vh) rotate(12deg); } 80% { transform: translate(90vw, 75vh) rotate(-5deg); } 100% { transform: translate(120vw, 30vh) rotate(3deg); } }",
+      "animation_name": "fly_WING",
+      "duration": "16s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/john_bird_WING.jpg",
+    "origin": "Boston MA",
+    "bird_name": "John"
   }
 ]
