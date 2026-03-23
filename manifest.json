@@ -1,50 +1,14 @@
 [
   {
-    "id": "bird_plum",
+    "id": "bird_FLAP",
     "animation": {
-      "css_keyframes": "@keyframes fly_plum { 0% { transform: translate(-20vw, 30vh) rotate(5deg); } 15% { transform: translate(10vw, 15vh) rotate(15deg); } 30% { transform: translate(30vw, 45vh) rotate(-10deg); } 50% { transform: translate(50vw, 20vh) rotate(8deg); } 70% { transform: translate(70vw, 50vh) rotate(-12deg); } 85% { transform: translate(90vw, 25vh) rotate(10deg); } 100% { transform: translate(120vw, 35vh) rotate(0deg); } }",
-      "animation_name": "fly_plum",
-      "duration": "16s",
-      "timing_function": "linear"
-    },
-    "image": "birds/mp_bird_plum.png",
-    "origin": "nyc",
-    "bird_name": "mp"
-  },
-  {
-    "id": "bird_yawn",
-    "animation": {
-      "css_keyframes": "@keyframes fly_yawn { 0% { transform: translate(-20vw, 30vh) rotate(-15deg); } 20% { transform: translate(10vw, 15vh) rotate(5deg); } 40% { transform: translate(40vw, 40vh) rotate(-20deg); } 60% { transform: translate(65vw, 10vh) rotate(10deg); } 80% { transform: translate(90vw, 35vh) rotate(-10deg); } 100% { transform: translate(120vw, 20vh) rotate(5deg); } }",
-      "animation_name": "fly_yawn",
-      "duration": "14s",
-      "timing_function": "linear"
-    },
-    "image": "birds/mp_bird_yawn.png",
-    "origin": "new yooork",
-    "bird_name": "mp"
-  },
-  {
-    "id": "bird_RUBY",
-    "animation": {
-      "css_keyframes": "@keyframes fly_RUBY { 0% { transform: translate(-20vw, 60vh) rotate(-10deg); } 20% { transform: translate(10vw, 30vh) rotate(15deg); } 45% { transform: translate(45vw, 75vh) rotate(-20deg); } 75% { transform: translate(85vw, 40vh) rotate(10deg); } 100% { transform: translate(120vw, 50vh) rotate(-5deg); } }",
-      "animation_name": "fly_RUBY",
+      "css_keyframes": "@keyframes fly_FLAP { 0% { transform: translate(-20vw, 60vh) rotate(-5deg); } 20% { transform: translate(10vw, 75vh) rotate(3deg); } 40% { transform: translate(45vw, 30vh) rotate(-8deg); } 60% { transform: translate(75vw, 55vh) rotate(4deg); } 80% { transform: translate(100vw, 35vh) rotate(-3deg); } 100% { transform: translate(120vw, 45vh) rotate(6deg); } }",
+      "animation_name": "fly_FLAP",
       "duration": "14s",
       "timing_function": "ease-in-out"
     },
-    "image": "birds/swift_bird_RUBY.jpg",
-    "origin": "New York, NY",
-    "bird_name": "Swift"
-  },
-  {
-    "id": "bird_LARK",
-    "animation": {
-      "css_keyframes": "@keyframes fly_LARK { 0% { transform: translate(-20vw, 55vh) rotate(2deg); } 20% { transform: translate(8vw, 65vh) rotate(-8deg); } 40% { transform: translate(36vw, 45vh) rotate(10deg); } 65% { transform: translate(72vw, 58vh) rotate(-6deg); } 85% { transform: translate(95vw, 35vh) rotate(12deg); } 100% { transform: translate(120vw, 50vh) rotate(0deg); } }",
-      "animation_name": "fly_LARK",
-      "duration": "14s",
-      "timing_function": "ease-in-out"
-    },
-    "image": "birds/andrew_bird_LARK.png",
-    "origin": "Philadelphia, PA",
-    "bird_name": "Andrew"
+    "image": "birds/jrbobdobbs_bird_FLAP.jpg",
+    "origin": "The High Himalaya",
+    "bird_name": "J.R. \"Bob\" Dobbs"
   }
 ]
