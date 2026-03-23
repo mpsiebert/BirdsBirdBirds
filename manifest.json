@@ -226,5 +226,17 @@
     "image": "birds/abdoula_bird_FLIT.jpg",
     "origin": "Columbia, SC",
     "bird_name": "Abdoula"
+  },
+  {
+    "id": "bird_14e5feb3",
+    "image": "birds/bea_bird_FLIT.jpg",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_14e5feb3 { 0% { transform: translate(-20vw, 57vh); } 100% { transform: translate(120vw, 58vh); } }",
+      "animation_name": "fly_bird_14e5feb3",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
