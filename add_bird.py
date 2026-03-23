@@ -87,8 +87,10 @@ Respond ONLY with a single valid JSON object in this exact format, with no extra
 Rules:
 - Replace all instances of "XXXX" with a unique 4-letter word.
 - SAFETY POLICY: If the uploaded drawing contains offensive, inappropriate, or NSFW content, you must output EXACTLY: {"error": "inappropriate"} and nothing else.
-- The animation must start at transform: translate(-20vw, ...) and end at translate(120vw, ...).
-- Choose a flight character (swooping, fluttering, gliding) that fits the bird.
+- DO NOT copy the example keyframes! Invent a UNIQUE, highly randomized flight path for this specific bird.
+- The animation must start at `transform: translate(-20vw, Y)` and end at `translate(120vw, Y)` where Y is a random height between 10vh and 90vh.
+- Create at least 5 different keyframe percentages (e.g. 0%, 20%, 50%, 80%, 100%) with varying heights and rotation angles.
+- Choose a flight character (swooping, fluttering, gliding, bouncing) that fits the bird.
 - Return ONLY the JSON. No markdown, no explanation.\033[0m"""
     
     print(prompt)
@@ -195,43 +197,65 @@ Rules:
     entry["origin"] = origin
     entry["bird_name"] = bird_name
 
-    manifest_path = "manifest.json"
-    manifest = []
-    if os.path.exists(manifest_path):
-        with open(manifest_path, "r") as f:
-            try:
-                manifest = json.load(f)
-            except json.JSONDecodeError:
-                manifest = []
-    
-    # Remove existing bird with same id
-    manifest = [existing for existing in manifest if existing.get("id") != entry.get("id")]
-    manifest.append(entry)
-
-    with open(manifest_path, "w") as f:
-        json.dump(manifest, f, indent=2)
-    print("✅  Successfully added to manifest.json!")
-
     print("\n\033[94mSTEP 5: Send It Live\033[0m")
     print("-" * 30)
-    
     print("Executing git commands to push your bird to the repo...")
-    print("> git add .")
-    os.system('git add .')
     
-    commit_msg = f"Add {bird_name}'s bird 🐦"
-    print(f'> git commit -m "{commit_msg}"')
-    os.system(f'git commit -m "{commit_msg}"')
+    import time
+    import random
     
-    print("> git push")
-    push_result = os.system('git push')
+    manifest_path = "manifest.json"
+    max_retries = 5
     
-    if push_result == 0:
-        print("\n\033[92m✨ SUCCESS! ✨\033[0m")
-        print("Your bird is now flying to the repo!")
-        print("Watch the sky at: https://mpsiebert.github.io/BirdsBirdBirds/")
+    for attempt in range(max_retries):
+        # Always pull latest to avoid manifest.json conflicts
+        print(f"> git pull --rebase (Attempt {attempt+1}/{max_retries})")
+        
+        # If manifest.json was modified on a previous failed loop, reset it so we can pull cleanly
+        os.system(f'git checkout -- {manifest_path} > /dev/null 2>&1')
+        os.system('git pull --rebase > /dev/null 2>&1')
+        
+        # Now read the fresh manifest
+        manifest = []
+        if os.path.exists(manifest_path):
+            with open(manifest_path, "r") as f:
+                try:
+                    manifest = json.load(f)
+                except json.JSONDecodeError:
+                    manifest = []
+        
+        # Remove existing bird with same id
+        manifest = [existing for existing in manifest if existing.get("id") != entry.get("id")]
+        manifest.append(entry)
+
+        with open(manifest_path, "w") as f:
+            json.dump(manifest, f, indent=2)
+            
+        print("✅  Successfully updated manifest.json!")
+        
+        print("> git add .")
+        os.system('git add . > /dev/null 2>&1')
+        
+        commit_msg = f"Add {bird_name}'s bird 🐦"
+        print(f'> git commit -m "{commit_msg}"')
+        os.system(f'git commit -m "{commit_msg}" > /dev/null 2>&1')
+        
+        print("> git push")
+        push_result = os.system('git push > /dev/null 2>&1')
+        
+        if push_result == 0:
+            print("\n\033[92m✨ SUCCESS! ✨\033[0m")
+            print("Your bird is now flying to the repo!")
+            print("Watch the sky at: https://mpsiebert.github.io/BirdsBirdBirds/")
+            break
+        else:
+            print("\n\033[93m⚠️ Push failed (likely someone else pushed an update at the exact same time).\033[0m")
+            print("Undoing commit and retrying...")
+            # Undo our commit so we can pull purely next loop
+            os.system('git reset --hard HEAD~1 > /dev/null 2>&1')
+            time.sleep(random.uniform(1, 3))
     else:
-        print("\n\033[91m⚠️ Hmm, the push failed.\033[0m")
+        print("\n\033[91m⚠️ Hmm, the push failed after multiple retries.\033[0m")
         print("You might need to manually push or check authentication.")
 
 if __name__ == "__main__":

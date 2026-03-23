@@ -35,8 +35,10 @@ Respond ONLY with a single valid JSON object in this exact format, with no extra
 
 Rules:
 - Replace all instances of "XXXX" with a unique 4-letter word (e.g. "swift", "wren", "dove").
-- The animation must start at transform: translate(-20vw, ...) and end at translate(120vw, ...) so it crosses the full screen.
-- Choose a vertical path and flight character (swooping, fluttering, gliding) that fits the bird's personality.
+- DO NOT copy the example keyframes! Invent a UNIQUE, highly randomized flight path for this specific bird.
+- The animation must start at `transform: translate(-20vw, Y)` and end at `translate(120vw, Y)` where Y is a random height between 10vh and 90vh.
+- Create at least 5 different keyframe percentages (e.g. 0%, 20%, 50%, 80%, 100%) with varying heights and rotation angles.
+- Choose a flight character (swooping, fluttering, gliding, bouncing) that fits the bird.
 - The duration should be between 10s and 25s.
 - Return ONLY the JSON. No markdown, no explanation.
 ```
