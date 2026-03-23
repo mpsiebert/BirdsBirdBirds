@@ -34,5 +34,17 @@
     "image": "birds/swift_bird_RUBY.jpg",
     "origin": "New York, NY",
     "bird_name": "Swift"
+  },
+  {
+    "id": "bird_LARK",
+    "animation": {
+      "css_keyframes": "@keyframes fly_LARK { 0% { transform: translate(-20vw, 55vh) rotate(2deg); } 20% { transform: translate(8vw, 65vh) rotate(-8deg); } 40% { transform: translate(36vw, 45vh) rotate(10deg); } 65% { transform: translate(72vw, 58vh) rotate(-6deg); } 85% { transform: translate(95vw, 35vh) rotate(12deg); } 100% { transform: translate(120vw, 50vh) rotate(0deg); } }",
+      "animation_name": "fly_LARK",
+      "duration": "14s",
+      "timing_function": "ease-in-out"
+    },
+    "image": "birds/andrew_bird_LARK.png",
+    "origin": "Philadelphia, PA",
+    "bird_name": "Andrew"
   }
 ]
