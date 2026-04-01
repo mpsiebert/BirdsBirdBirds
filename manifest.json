@@ -298,5 +298,17 @@
     "image": "birds/mary_bird_blue.jpg",
     "origin": "nyc",
     "bird_name": "Mary"
+  },
+  {
+    "id": "bird_644d6fc0",
+    "image": "birds/marcussostak_bird_blue.png",
+    "bird_name": "Anonymous",
+    "origin": "GitHub",
+    "animation": {
+      "css_keyframes": "@keyframes fly_bird_644d6fc0 { 0% { transform: translate(-20vw, 20vh); } 100% { transform: translate(120vw, 67vh); } }",
+      "animation_name": "fly_bird_644d6fc0",
+      "duration": "20s",
+      "timing_function": "linear"
+    }
   }
 ]
